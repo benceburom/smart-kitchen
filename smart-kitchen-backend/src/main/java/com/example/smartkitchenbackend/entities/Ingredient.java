@@ -14,8 +14,6 @@ public class Ingredient implements Serializable {
 	private long id;
 
 	private String name;
-
-	private double calory;
     
 	@OneToMany(mappedBy = "ingredient")
     private Set<WishedIngredient> wishLists;

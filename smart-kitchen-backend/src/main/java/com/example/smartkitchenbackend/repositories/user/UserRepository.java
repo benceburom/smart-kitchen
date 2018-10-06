@@ -1,11 +1,21 @@
 package com.example.smartkitchenbackend.repositories.user;
 
 import com.example.smartkitchenbackend.entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository {
-	User findById(long id);
+import java.util.List;
+import java.util.Optional;
 
-	User save(User user);
+public interface UserRepository extends JpaRepository<User, Long> {
+	Optional<User> findByEmail(String email);
 
-	void delete(User user);
+	Optional<User> findByUsernameOrEmail(String username, String email);
+
+	List<User> findByIdIn(List<Long> userIds);
+
+	Optional<User> findByUsername(String username);
+
+	Boolean existsByUsername(String username);
+
+	Boolean existsByEmail(String email);
 }

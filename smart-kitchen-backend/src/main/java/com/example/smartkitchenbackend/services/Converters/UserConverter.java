@@ -1,6 +1,6 @@
 package com.example.smartkitchenbackend.services.Converters;
 
-import com.example.smartkitchenbackend.Dtos.UserDTO;
+import com.example.smartkitchenbackend.DTOs.UserDTO;
 import com.example.smartkitchenbackend.entities.User;
 import lombok.experimental.UtilityClass;
 
