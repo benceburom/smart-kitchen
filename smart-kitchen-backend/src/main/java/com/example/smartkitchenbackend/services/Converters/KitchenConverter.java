@@ -1,5 +1,6 @@
 package com.example.smartkitchenbackend.services.Converters;
 
+import com.example.smartkitchenbackend.DTOs.KitchenDTO;
 import com.example.smartkitchenbackend.DTOs.NewKitchenDTO;
 import com.example.smartkitchenbackend.entities.Kitchen;
 import lombok.experimental.UtilityClass;
@@ -13,10 +14,16 @@ public class KitchenConverter {
 		return kitchen;
 	}
 
-	public static NewKitchenDTO toDTO(Kitchen kitchen) {
+	public static NewKitchenDTO toNewKitchenDTO(Kitchen kitchen) {
 		return NewKitchenDTO.builder()
 				.name(kitchen.getName())
 				.userId(kitchen.getUsers().stream().findFirst().get().getId())
+				.build();
+	}
+
+	public static KitchenDTO toKitchenDTO(Kitchen kitchen) {
+		return KitchenDTO.builder()
+				.name(kitchen.getName())
 				.build();
 	}
 }

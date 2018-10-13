@@ -1,5 +1,6 @@
 package com.example.smartkitchenbackend.services;
 
+import com.example.smartkitchenbackend.DTOs.KitchenDTO;
 import com.example.smartkitchenbackend.DTOs.payload.ApiResponse;
 import com.example.smartkitchenbackend.DTOs.payload.JwtAuthenticationResponse;
 import com.example.smartkitchenbackend.DTOs.payload.LoginRequest;
@@ -9,6 +10,7 @@ import com.example.smartkitchenbackend.entities.RoleName;
 import com.example.smartkitchenbackend.entities.User;
 import com.example.smartkitchenbackend.repositories.user.UserRepository;
 import com.example.smartkitchenbackend.security.JwtTokenProvider;
+import com.example.smartkitchenbackend.services.Converters.KitchenConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -92,5 +95,10 @@ public class UserService {
 
 		String jwt = tokenProvider.generateToken(authentication);
 		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+	}
+
+	public List<KitchenDTO> getKitchensByUserId(long userId) {
+		User user = userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found with id : " + userId));
+		return user.getKitchens().stream().map(KitchenConverter::toKitchenDTO).collect(Collectors.toList());
 	}
 }

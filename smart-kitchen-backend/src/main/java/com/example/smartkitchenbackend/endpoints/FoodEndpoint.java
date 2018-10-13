@@ -16,6 +16,6 @@ public class FoodEndpoint {
 
 	@PostMapping("/createFood")
 	public void createFood(@RequestBody FoodDTO foodDTO) {
-
+		foodService.create(foodDTO);
 	}
 }

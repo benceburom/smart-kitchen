@@ -1,4 +1,4 @@
-package com.example.smartkitchenbackend.entities;
+package com.example.smartkitchenbackend.entities.audit;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

@@ -25,4 +25,8 @@ public class KitchenService {
 		kitchen.addUser(userRepository.getOne(userId));
 		kitchenRepository.save(kitchen);
 	}
+
+	public Kitchen findById(long kitchenId) {
+		return kitchenRepository.findById(kitchenId);
+	}
 }

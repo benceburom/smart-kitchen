@@ -3,7 +3,8 @@ package com.example.smartkitchenbackend.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,7 +16,7 @@ public class Food{
 	private String name;
 
 	@OneToMany(mappedBy = "food")
-    private Set<NeededIngredient> ingredients;
+	private List<NeededIngredient> ingredients = new ArrayList<>();
 
     @ManyToOne
     private Kitchen kitchen;

@@ -1,6 +1,8 @@
 package com.example.smartkitchenbackend.entities;
 
+import com.example.smartkitchenbackend.entities.audit.DateAudit;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -12,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "users", uniqueConstraints = {
 		@UniqueConstraint(columnNames = {
@@ -52,7 +55,6 @@ public class User extends DateAudit {
 	private Set<Role> roles = new HashSet<>();
 
 	public User() {
-
 	}
 
 	public User(String name, String username, String email, String password) {

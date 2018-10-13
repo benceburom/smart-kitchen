@@ -5,14 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
-public class FoodDTO {
+public class NeededIngredientDTO {
 	private String name;
-	private long kitchenId;
-	private List<NeededIngredientDTO> ingredients;
+	private double weightOrCount;
 }

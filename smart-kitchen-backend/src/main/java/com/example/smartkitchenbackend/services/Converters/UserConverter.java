@@ -11,16 +11,17 @@ public class UserConverter {
 		User user = new User();
 		user.setName(userDTO.getName());
 		user.setEmail(userDTO.getEmail());
-		user.setPassword(userDTO.getPassword());
+		user.setUsername(userDTO.getUserName());
 
 		return user;
 	}
 
 	public static UserDTO toDTO(User user) {
 		return UserDTO.builder()
+				.id(user.getId())
 				.name(user.getName())
 				.email(user.getEmail())
-				.password(user.getPassword())
+				.userName(user.getUsername())
 				.build();
 	}
 }
