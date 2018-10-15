@@ -15,7 +15,7 @@ public class WishList implements Serializable {
 	
 	@OneToMany(mappedBy = "wishList")
 	private Set<WishedIngredient> ingredients;
-	
-	@ManyToOne
+
+	@OneToOne
     private Kitchen kitchen;
 }

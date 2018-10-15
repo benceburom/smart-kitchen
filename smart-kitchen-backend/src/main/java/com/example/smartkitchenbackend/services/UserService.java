@@ -1,6 +1,7 @@
 package com.example.smartkitchenbackend.services;
 
-import com.example.smartkitchenbackend.DTOs.KitchenDTO;
+import com.example.smartkitchenbackend.DTOs.Kitchen.KitchenDTO;
+import com.example.smartkitchenbackend.DTOs.UserDTO;
 import com.example.smartkitchenbackend.DTOs.payload.ApiResponse;
 import com.example.smartkitchenbackend.DTOs.payload.JwtAuthenticationResponse;
 import com.example.smartkitchenbackend.DTOs.payload.LoginRequest;
@@ -11,6 +12,7 @@ import com.example.smartkitchenbackend.entities.User;
 import com.example.smartkitchenbackend.repositories.user.UserRepository;
 import com.example.smartkitchenbackend.security.JwtTokenProvider;
 import com.example.smartkitchenbackend.services.Converters.KitchenConverter;
+import com.example.smartkitchenbackend.services.Converters.UserConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,8 +47,11 @@ public class UserService {
 		);
 	}
 
-	public List<User> getUsers() {
-		return userRepository.findAll();
+	public List<UserDTO> getUsers() {
+		return userRepository.findAll()
+				.stream()
+				.map(UserConverter::toDTO)
+				.collect(Collectors.toList());
 	}
 
 	public void addKitchenToUser(long userId, long kitchenId) {

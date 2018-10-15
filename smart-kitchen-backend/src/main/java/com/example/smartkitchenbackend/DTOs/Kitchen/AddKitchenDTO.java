@@ -1,4 +1,4 @@
-package com.example.smartkitchenbackend.DTOs;
+package com.example.smartkitchenbackend.DTOs.Kitchen;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

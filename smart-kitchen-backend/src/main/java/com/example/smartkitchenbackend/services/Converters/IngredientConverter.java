@@ -1,8 +1,7 @@
 package com.example.smartkitchenbackend.services.Converters;
 
-import com.example.smartkitchenbackend.entities.Food;
-import com.example.smartkitchenbackend.entities.Ingredient;
-import com.example.smartkitchenbackend.entities.NeededIngredient;
+import com.example.smartkitchenbackend.DTOs.IngredientDTO;
+import com.example.smartkitchenbackend.entities.*;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -14,5 +13,20 @@ public class IngredientConverter {
 		neededIngredient.setWeightOrCount(weightOrCount);
 		neededIngredient.setIngredient(ingredient);
 		return neededIngredient;
+	}
+
+	public static IngredientInKitchen toIngredientInKitchenEntity(double weightOrCount, Kitchen kitchen, Ingredient ingredient) {
+		IngredientInKitchen ingredientInKitchen = new IngredientInKitchen();
+		ingredientInKitchen.setWeightOrCount(weightOrCount);
+		ingredientInKitchen.setKitchen(kitchen);
+		ingredientInKitchen.setIngredient(ingredient);
+		return ingredientInKitchen;
+	}
+
+	public static IngredientDTO toIngredientDTO(double weightOrCount, String name) {
+		return IngredientDTO.builder()
+				.name(name)
+				.weightOrCount(weightOrCount)
+				.build();
 	}
 }

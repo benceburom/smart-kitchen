@@ -12,7 +12,7 @@ public class IngredientEndpoint {
 	private final IngredientService ingredientService;
 
 	/*@PostMapping("/create")
-	public void createIngredient(@RequestBody NeededIngredientDTO neededIngredientDTO) {
+	public void createIngredient(@RequestBody IngredientDTO neededIngredientDTO) {
 		ingredientService.createInFood(neededIngredientDTO);
 	}*/
 

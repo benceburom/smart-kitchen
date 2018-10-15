@@ -5,11 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 @Builder
-public class NewKitchenDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class IngredientDTO {
 	private String name;
-	private long userId;
+	private double weightOrCount;
 }

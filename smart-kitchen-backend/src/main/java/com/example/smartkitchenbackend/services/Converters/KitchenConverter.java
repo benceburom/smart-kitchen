@@ -1,9 +1,12 @@
 package com.example.smartkitchenbackend.services.Converters;
 
-import com.example.smartkitchenbackend.DTOs.KitchenDTO;
-import com.example.smartkitchenbackend.DTOs.NewKitchenDTO;
+import com.example.smartkitchenbackend.DTOs.Kitchen.KitchenDTO;
+import com.example.smartkitchenbackend.DTOs.Kitchen.KitchenDetailDTO;
+import com.example.smartkitchenbackend.DTOs.Kitchen.NewKitchenDTO;
 import com.example.smartkitchenbackend.entities.Kitchen;
 import lombok.experimental.UtilityClass;
+
+import java.util.stream.Collectors;
 
 @UtilityClass
 public class KitchenConverter {
@@ -24,6 +27,19 @@ public class KitchenConverter {
 	public static KitchenDTO toKitchenDTO(Kitchen kitchen) {
 		return KitchenDTO.builder()
 				.name(kitchen.getName())
+				.id(kitchen.getId())
+				.build();
+	}
+
+	public static KitchenDetailDTO toKitchenDetailDTO(Kitchen kitchen) {
+		return KitchenDetailDTO.builder()
+				.id(kitchen.getId())
+				.name(kitchen.getName())
+				//.wishListId(kitchen.getWishList().getId())
+				.ingredients(kitchen.getIngredients()
+						.stream()
+						.map(i -> IngredientConverter.toIngredientDTO(i.getWeightOrCount(), i.getIngredient().getName()))
+						.collect(Collectors.toList()))
 				.build();
 	}
 }

@@ -1,6 +1,6 @@
 package com.example.smartkitchenbackend.services;
 
-import com.example.smartkitchenbackend.DTOs.NeededIngredientDTO;
+import com.example.smartkitchenbackend.DTOs.IngredientDTO;
 import com.example.smartkitchenbackend.entities.*;
 import com.example.smartkitchenbackend.repositories.ingerdientInKitchen.IngredientInKitchenRepository;
 import com.example.smartkitchenbackend.repositories.ingredient.IngredientRepository;
@@ -18,34 +18,34 @@ public class IngredientService {
 	private final WishedIngredientRepository wishedIngredientRepository;
 
 
-	public NeededIngredient createInFood(NeededIngredientDTO neededIngredientDTO, Food food) {
+	public NeededIngredient createInFood(IngredientDTO ingredientDTO, Food food) {
 		Ingredient ingredient = new Ingredient();
-		ingredient.setName(neededIngredientDTO.getName());
+		ingredient.setName(ingredientDTO.getName());
 		ingredientRepository.save(ingredient);
 		NeededIngredient neededIngredient = new NeededIngredient();
 		neededIngredient.setIngredient(ingredient);
-		neededIngredient.setWeightOrCount(neededIngredientDTO.getWeightOrCount());
+		neededIngredient.setWeightOrCount(ingredientDTO.getWeightOrCount());
 		neededIngredient.setFood(food);
 		return neededIngredientRepository.save(neededIngredient);
 	}
 
-	public void createInKitchen(String name, long weightOrCount, Kitchen kitchen) {
+	public void createInKitchen(IngredientDTO ingredientDTO, Kitchen kitchen) {
 		Ingredient ingredient = new Ingredient();
-		ingredient.setName(name);
+		ingredient.setName(ingredientDTO.getName());
 		IngredientInKitchen ingredientInKitchen = new IngredientInKitchen();
 		ingredientInKitchen.setIngredient(ingredient);
-		ingredientInKitchen.setWeightOrCount(weightOrCount);
+		ingredientInKitchen.setWeightOrCount(ingredientDTO.getWeightOrCount());
 		ingredientInKitchen.setKitchen(kitchen);
 		ingredientRepository.save(ingredient);
 		ingredientInKitchenRepository.save(ingredientInKitchen);
 	}
 
-	public void createInWishList(String name, long weightOrCount, WishList wishList) {
+	public void createInWishList(IngredientDTO ingredientDTO, WishList wishList) {
 		Ingredient ingredient = new Ingredient();
-		ingredient.setName(name);
+		ingredient.setName(ingredientDTO.getName());
 		WishedIngredient wishedIngredient = new WishedIngredient();
 		wishedIngredient.setIngredient(ingredient);
-		wishedIngredient.setWeightOrCount(weightOrCount);
+		wishedIngredient.setWeightOrCount(ingredientDTO.getWeightOrCount());
 		wishedIngredient.setWishList(wishList);
 		ingredientRepository.save(ingredient);
 		wishedIngredientRepository.save(wishedIngredient);

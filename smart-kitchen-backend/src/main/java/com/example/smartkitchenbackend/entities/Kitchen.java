@@ -1,18 +1,15 @@
 package com.example.smartkitchenbackend.entities;
 
-import com.example.smartkitchenbackend.entities.audit.UserDateAudit;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class Kitchen extends UserDateAudit {
+public class Kitchen {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -25,8 +22,8 @@ public class Kitchen extends UserDateAudit {
 	@OneToMany(mappedBy = "kitchen")
 	private Set<IngredientInKitchen> ingredients;
 
-	@OneToMany(mappedBy = "kitchen")
-	private Set<WishList> wishLists;
+	@OneToOne
+	private WishList wishList;
 
 	@OneToMany(mappedBy = "kitchen")
 	private Set<Food> foods;

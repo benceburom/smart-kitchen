@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Repository
@@ -24,5 +25,10 @@ public class DefaultKitchenRepository implements KitchenRepository {
 	@Override
 	public void delete(Kitchen kitchen) {
 		kitchenJPARepository.delete(kitchen);
+	}
+
+	@Override
+	public List<Kitchen> findAll() {
+		return kitchenJPARepository.findAll();
 	}
 }

@@ -1,4 +1,4 @@
-package com.example.smartkitchenbackend.DTOs;
+package com.example.smartkitchenbackend.DTOs.Kitchen;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class KitchenDTO {
+public class NewKitchenDTO {
 	private String name;
+	private long userId;
 }

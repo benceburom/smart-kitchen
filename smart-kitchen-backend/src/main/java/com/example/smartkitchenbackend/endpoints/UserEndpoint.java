@@ -1,9 +1,8 @@
 package com.example.smartkitchenbackend.endpoints;
 
-import com.example.smartkitchenbackend.DTOs.AddKitchenDTO;
-import com.example.smartkitchenbackend.DTOs.KitchenDTO;
+import com.example.smartkitchenbackend.DTOs.Kitchen.AddKitchenDTO;
+import com.example.smartkitchenbackend.DTOs.Kitchen.KitchenDTO;
 import com.example.smartkitchenbackend.DTOs.UserDTO;
-import com.example.smartkitchenbackend.entities.User;
 import com.example.smartkitchenbackend.security.CurrentUser;
 import com.example.smartkitchenbackend.security.UserPrincipal;
 import com.example.smartkitchenbackend.services.Converters.UserConverter;
@@ -21,7 +20,7 @@ public class UserEndpoint {
 	private final UserService userService;
 
 	@GetMapping("/{userId}")
-	public UserDTO getAttendee(@PathVariable("userId") long userId) {
+	public UserDTO getUser(@PathVariable("userId") long userId) {
 		return UserConverter.toDTO(userService.getUserById(userId));
 	}
 
@@ -32,7 +31,7 @@ public class UserEndpoint {
 	}
 
 	@GetMapping("/list")
-	public List<User> getUser() {
+	public List<UserDTO> getUser() {
 		return userService.getUsers();
 	}
 
