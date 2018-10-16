@@ -25,4 +25,16 @@ public class DefaultNeededIngredientRepository implements NeededIngredientReposi
 	public void delete(NeededIngredient neededIngredient) {
 		neededIngredientJPARepository.delete(neededIngredient);
 	}
+
+	@Override
+	public Boolean existsByIngredientIdAndFoodId(long id, long foodId) {
+		return neededIngredientJPARepository.existsByIngredientIdAndFoodId(id, foodId);
+	}
+
+	@Override
+	public NeededIngredient findByIngredientIdAndFoodId(long id, long foodId) {
+		return neededIngredientJPARepository.findByIngredientIdAndFoodId(id, foodId);
+	}
+
+
 }

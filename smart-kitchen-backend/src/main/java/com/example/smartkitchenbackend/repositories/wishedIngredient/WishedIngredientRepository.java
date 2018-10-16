@@ -8,4 +8,8 @@ public interface WishedIngredientRepository {
 	WishedIngredient save(WishedIngredient wishedIngredient);
 
 	void delete(WishedIngredient wishedIngredient);
+
+	Boolean existsByIngredientIdAndWishListId(long id, long wishListId);
+
+	WishedIngredient findByIngredientIdAndWishListId(long id, long wishListId);
 }

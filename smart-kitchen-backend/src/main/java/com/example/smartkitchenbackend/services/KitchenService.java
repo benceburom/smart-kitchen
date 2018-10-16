@@ -18,11 +18,14 @@ import java.util.stream.Collectors;
 public class KitchenService {
 	private final KitchenRepository kitchenRepository;
 	private final UserRepository userRepository;
+	private final WishListService wishListService;
 
 	public void create(NewKitchenDTO kitchenDTO) {
 		Kitchen kitchen = new Kitchen();
 		kitchen.setName(kitchenDTO.getName());
 		kitchen.addUser(userRepository.getOne(kitchenDTO.getUserId()));
+		kitchenRepository.save(kitchen);
+		kitchen.setWishList(wishListService.createWishListInKitchen(kitchen));
 		kitchenRepository.save(kitchen);
 	}
 

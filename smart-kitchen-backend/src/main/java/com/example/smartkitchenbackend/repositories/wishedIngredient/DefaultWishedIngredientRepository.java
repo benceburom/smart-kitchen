@@ -26,4 +26,14 @@ public class DefaultWishedIngredientRepository implements WishedIngredientReposi
 		wishedIngredientJPARepository.delete(wishedIngredient);
 	}
 
+	@Override
+	public Boolean existsByIngredientIdAndWishListId(long id, long wishListId) {
+		return wishedIngredientJPARepository.existsByIngredientIdAndWishListId(id, wishListId);
+	}
+
+	@Override
+	public WishedIngredient findByIngredientIdAndWishListId(long id, long wishListId) {
+		return wishedIngredientJPARepository.findByIngredientIdAndWishListId(id, wishListId);
+	}
+
 }

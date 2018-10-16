@@ -1,13 +1,14 @@
 package com.example.smartkitchenbackend.entities;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
 @Entity
-public class IngredientInKitchen implements Serializable {
+public class IngredientInKitchen {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

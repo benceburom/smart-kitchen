@@ -25,4 +25,14 @@ public class DefaultIngredientRepository implements IngredientRepository {
 	public void delete(Ingredient ingredient) {
 		ingredientJPARepository.delete(ingredient);
 	}
+
+	@Override
+	public Boolean existsByName(String name) {
+		return ingredientJPARepository.existsByName(name);
+	}
+
+	@Override
+	public Ingredient findByName(String name) {
+		return ingredientJPARepository.findByName(name);
+	}
 }

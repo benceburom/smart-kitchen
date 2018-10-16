@@ -8,4 +8,8 @@ public interface IngredientRepository {
 	Ingredient save(Ingredient ingredient);
 
 	void delete(Ingredient ingredient);
+
+	Boolean existsByName(String name);
+
+	Ingredient findByName(String name);
 }

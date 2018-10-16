@@ -8,4 +8,8 @@ public interface NeededIngredientRepository {
 	NeededIngredient save(NeededIngredient neededIngredient);
 
 	void delete(NeededIngredient neededIngredient);
+
+	Boolean existsByIngredientIdAndFoodId(long id, long foodId);
+
+	NeededIngredient findByIngredientIdAndFoodId(long id, long foodId);
 }
