@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>register</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div>
+        <label for="exampleInputUsername">Username</label>
+        <input type="text" class="form-control" id="exampleInputUsername"
+               [(ngModel)]="model.username" name="model.username">
+    </div>
+    <div>
+        <label for="exampleInputPassword">Password</label>
+        <input type="text" class="form-control" id="exampleInputPassword"
+               [(ngModel)]="model.password" name="model.password">
+    </div>
+    <div>
+        <label for="exampleInputEmail">Email</label>
+        <input type="text" class="form-control" id="exampleInputEmail"
+               [(ngModel)]="model.email" name="model.email">
+    </div>
+    <div>
+        <label for="exampleInputFullName">FullName</label>
+        <input type="text" class="form-control" id="exampleInputFullName"
+               [(ngModel)]="model.name" name="model.name">
+    </div>
+    <div>
+        <button [disabled]="false" type="submit" class="btn btn-primary" (click)="register()">Regisztrálás</button>
+    </div>
+
+</ion-content>
