@@ -8,22 +8,22 @@
     <div>
         <label for="exampleInputUsername">Username</label>
         <input type="text" class="form-control" id="exampleInputUsername"
-               [(ngModel)]="model.username" name="model.username">
+               [(ngModel)]="signUpRequest.username" name="signUpRequest.username">
     </div>
     <div>
         <label for="exampleInputPassword">Password</label>
         <input type="text" class="form-control" id="exampleInputPassword"
-               [(ngModel)]="model.password" name="model.password">
+               [(ngModel)]="signUpRequest.password" name="signUpRequest.password">
     </div>
     <div>
         <label for="exampleInputEmail">Email</label>
         <input type="text" class="form-control" id="exampleInputEmail"
-               [(ngModel)]="model.email" name="model.email">
+               [(ngModel)]="signUpRequest.email" name="signUpRequest.email">
     </div>
     <div>
         <label for="exampleInputFullName">FullName</label>
         <input type="text" class="form-control" id="exampleInputFullName"
-               [(ngModel)]="model.name" name="model.name">
+               [(ngModel)]="signUpRequest.name" name="signUpRequest.name">
     </div>
     <div>
         <button [disabled]="false" type="submit" class="btn btn-primary" (click)="register()">Regisztrálás</button>

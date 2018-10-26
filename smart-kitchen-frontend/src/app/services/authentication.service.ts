@@ -12,50 +12,45 @@ import {Storage} from '@ionic/storage';
 @Injectable()
 export class AuthenticationService {
     @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
+    storedToken: String;
 
     private authUrl = 'http://localhost:8080/api/auth';
 
     constructor(private http: HttpClient, private storage: Storage) {
+        this.storedToken = '';
     }
 
     login(loginRequest: LoginRequest): Observable<boolean> {
         return this.http.post<JwtAuthenticationResponse>(
             this.authUrl + '/signin',
-            {loginRequest: LoginRequest}
+            loginRequest
         ).pipe(map(data => {
             if (data.accessToken) {
                 this.storage.set('currentUser', JSON.stringify({username: loginRequest.usernameOrEmail, token: data.accessToken}));
-                this.getLoggedInName.emit(loginRequest.usernameOrEmail);
                 return true;
             } else {
-                this.getLoggedInName.emit(loginRequest.usernameOrEmail);
                 return false;
             }
         }));
     }
 
-    signUp(user: SignUpRequest): Observable<ApiResponse> {
-        return this.http.post<ApiResponse>(this.authUrl + '/signup',
-            {
-                name: user.name,
-                username: user.username,
-                email: user.email,
-                password: user.password
-            });
+    signUp(signUpRequest: SignUpRequest): Observable<ApiResponse> {
+        return this.http.post<ApiResponse>(this.authUrl + '/signup', signUpRequest);
     }
 
     getToken(): String {
         let currentUser;
         this.storage.get('currentUser').then(user => {
             currentUser = JSON.parse(user);
+            const token = currentUser && currentUser.token;
+            token ? this.storedToken = token : this.storedToken = '';
         });
-        const token = currentUser && currentUser.token;
-        return token ? token : '';
+        return this.storedToken;
     }
 
     logout(): void {
-        this.getLoggedInName.emit('');
         this.storage.remove('currentUser');
+        this.storedToken = null;
     }
 
     isLoggedIn(): boolean {
@@ -66,7 +61,7 @@ export class AuthenticationService {
     getCurrentUserName(): Observable<string> {
         return this.http.get<UserSummary>('http://localhost:8080/api/user/me')
             .pipe(map(data => {
-                return data.username;
+                return data.userName;
             }));
     }
 

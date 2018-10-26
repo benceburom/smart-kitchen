@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Home</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div>
+        <label for="exampleInputUsername">Username</label>
+        <input type="text" class="form-control" id="exampleInputUsername"
+               [(ngModel)]="loginRequest.usernameOrEmail" name="loginRequest.usernameOrEmail">
+    </div>
+    <div>
+        <label for="exampleInputPassword">Password</label>
+        <input type="text" class="form-control" id="exampleInputPassword"
+               [(ngModel)]="loginRequest.password" name="loginRequest.password">
+    </div>
+    <div>
+        <button [disabled]="false" type="submit" class="btn btn-primary" (click)="login()">Login</button>
+    </div>
+    <div>
+        <button [disabled]="false" type="submit" class="btn btn-primary" (click)="logout()">Logout</button>
+    </div>
+    <div>
+        <button [disabled]="false" type="submit" class="btn btn-primary" (click)="getMe()">GetMe</button>
+    </div>
+</ion-content>

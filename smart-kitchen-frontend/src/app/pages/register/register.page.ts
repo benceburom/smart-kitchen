@@ -11,10 +11,10 @@ export class RegisterPage implements OnInit {
 
     signUpRequest: SignUpRequest;
     success = '';
-    model: any = {};
 
 
     constructor(private authenticationService: AuthenticationService) {
+        this.signUpRequest = new SignUpRequest();
     }
 
     ngOnInit() {
@@ -22,7 +22,6 @@ export class RegisterPage implements OnInit {
 
     register() {
         this.success = '';
-        this.signUpRequest = this.model;
         this.authenticationService.signUp(this.signUpRequest)
             .subscribe(result => {
                 if (result.success) {

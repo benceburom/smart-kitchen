@@ -2,8 +2,9 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 import {TabsPage} from './tabs.page';
-import {HomePage} from '../home/home.page';
-import {RegisterPage} from '../authentication/register/register.page';
+import {HomePage} from '../pages/home/home.page';
+import {RegisterPage} from '../pages/register/register.page';
+import {LoggedInUserPage} from '../pages/logged-in-user/logged-in-user.page';
 
 const routes: Routes = [
     {
@@ -24,6 +25,11 @@ const routes: Routes = [
                 path: 'register',
                 outlet: 'register',
                 component: RegisterPage
+            },
+            {
+                path: 'logged-in-user',
+                outlet: 'logged-in-user',
+                component: LoggedInUserPage
             }
         ]
     },

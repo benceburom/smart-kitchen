@@ -1,5 +1,5 @@
 export class UserSummary {
     id: number;
-    username: string;
+    userName: string;
     name: string;
 }

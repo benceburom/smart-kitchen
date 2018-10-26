@@ -7,8 +7,9 @@ import {FormsModule} from '@angular/forms';
 import {TabsPageRoutingModule} from './tabs.router.module';
 
 import {TabsPage} from './tabs.page';
-import {HomePageModule} from '../home/home.module';
-import {RegisterPageModule} from '../authentication/register/register.module';
+import {HomePageModule} from '../pages/home/home.module';
+import {RegisterPageModule} from '../pages/register/register.module';
+import {LoggedInUserPageModule} from '../pages/logged-in-user/logged-in-user.module';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import {RegisterPageModule} from '../authentication/register/register.module';
         FormsModule,
         TabsPageRoutingModule,
         HomePageModule,
-        RegisterPageModule
+        RegisterPageModule,
+        LoggedInUserPageModule
     ],
     declarations: [TabsPage]
 })
