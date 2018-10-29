@@ -3,6 +3,7 @@ package com.example.smartkitchenbackend.services;
 import com.example.smartkitchenbackend.DTOs.FoodDTO;
 import com.example.smartkitchenbackend.entities.Food;
 import com.example.smartkitchenbackend.repositories.food.FoodRepository;
+import com.example.smartkitchenbackend.services.Converters.FoodConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class FoodService {
 	private final IngredientService ingredientService;
 
 
-	public void create(FoodDTO foodDTO) {
+	public FoodDTO create(FoodDTO foodDTO) {
 		Food food = new Food();
 		food.setKitchen(kitchenService.findById(foodDTO.getKitchenId()));
 		food.setName(foodDTO.getName());
@@ -25,6 +26,6 @@ public class FoodService {
 				.stream()
 				.map(neededIngredientDTO -> ingredientService.createInFood(neededIngredientDTO, food))
 				.collect(Collectors.toList()));
-		foodRepository.save(food);
+		return FoodConverter.toFoodDTO(foodRepository.save(food), foodDTO.getIngredients());
 	}
 }

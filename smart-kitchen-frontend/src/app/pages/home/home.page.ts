@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginRequest} from '../../model/LoginRequest';
 import {AuthenticationService} from '../../services/authentication.service';
+import {NavController} from '@ionic/angular';
 
 @Component({
     selector: 'app-home',
@@ -9,9 +10,8 @@ import {AuthenticationService} from '../../services/authentication.service';
 })
 export class HomePage implements OnInit {
     loginRequest: LoginRequest;
-    username = '';
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private authenticationService: AuthenticationService, private navCtrl: NavController) {
         this.loginRequest = new LoginRequest();
     }
 
@@ -22,8 +22,10 @@ export class HomePage implements OnInit {
         this.authenticationService.login(this.loginRequest)
             .subscribe(result => {
                 if (result) {
-                    console.log('siker');
-                    console.log(this.authenticationService.getToken());
+                    this.getCurrentUserId().then(res => {
+                        console.log(res);
+                        this.navCtrl.navigateForward(`/logged-in-user/${res}`);
+                    });
                 }
             }, error => {
                 console.log('error');
@@ -34,10 +36,12 @@ export class HomePage implements OnInit {
         this.authenticationService.logout();
     }
 
-    getMe() {
-        this.authenticationService.getCurrentUserName().subscribe(uname => {
-            this.username = uname;
-            console.log(this.username);
+    getCurrentUserId() {
+        return new Promise(resolve => {
+            this.authenticationService.getCurrentUser().subscribe(data => {
+                resolve(data.id);
+            });
         });
+
     }
 }

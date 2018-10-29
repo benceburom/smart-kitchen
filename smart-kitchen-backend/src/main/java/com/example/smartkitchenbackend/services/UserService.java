@@ -54,8 +54,8 @@ public class UserService {
 				.collect(Collectors.toList());
 	}
 
-	public void addKitchenToUser(long userId, long kitchenId) {
-		kitchenService.addUserToKitchen(kitchenId, userId);
+	public KitchenDTO addKitchenToUser(long userId, long kitchenId) {
+		return kitchenService.addUserToKitchen(kitchenId, userId);
 	}
 
 	public ResponseEntity<?> registerUser(SignUpRequest signUpRequest) {

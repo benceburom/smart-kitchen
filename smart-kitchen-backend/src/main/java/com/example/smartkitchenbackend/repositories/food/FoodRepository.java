@@ -8,4 +8,6 @@ public interface FoodRepository {
 	Food save(Food food);
 
 	void delete(Food food);
+
+	Food findReference(long id);
 }

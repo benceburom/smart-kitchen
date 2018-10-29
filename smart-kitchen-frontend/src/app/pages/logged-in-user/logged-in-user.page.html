@@ -6,5 +6,22 @@
 
 <ion-content padding>
     Logged in user details
-
+    <div>
+        <ul>
+            <li *ngFor="let kitchen of kitchens;">
+                <ion-item href="/kitchen-detail/{{kitchen.id}}" routerDirection="forward">{{kitchen.id}}
+                    {{kitchen.name}}
+                </ion-item>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <label for="KitchenName">Password</label>
+        <input type="text" class="form-control" id="KitchenName"
+               [(ngModel)]="newKitchen.name">
+    </div>
+    <div>
+        <button [disabled]="false" type="submit" class="btn btn-primary" (click)="createKitchen()">Create new kitchen
+        </button>
+    </div>
 </ion-content>

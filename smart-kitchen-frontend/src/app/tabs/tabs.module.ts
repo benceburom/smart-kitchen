@@ -1,5 +1,4 @@
 import {IonicModule} from '@ionic/angular';
-import {RouterModule} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -10,6 +9,7 @@ import {TabsPage} from './tabs.page';
 import {HomePageModule} from '../pages/home/home.module';
 import {RegisterPageModule} from '../pages/register/register.module';
 import {LoggedInUserPageModule} from '../pages/logged-in-user/logged-in-user.module';
+import {KitchenDetailPageModule} from '../pages/kitchen-detail/kitchen-detail.module';
 
 @NgModule({
     imports: [
@@ -19,7 +19,8 @@ import {LoggedInUserPageModule} from '../pages/logged-in-user/logged-in-user.mod
         TabsPageRoutingModule,
         HomePageModule,
         RegisterPageModule,
-        LoggedInUserPageModule
+        LoggedInUserPageModule,
+        KitchenDetailPageModule
     ],
     declarations: [TabsPage]
 })

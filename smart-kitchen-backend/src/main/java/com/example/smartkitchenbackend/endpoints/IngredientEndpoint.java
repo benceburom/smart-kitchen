@@ -12,13 +12,13 @@ public class IngredientEndpoint {
 	private final IngredientService ingredientService;
 
 	@PostMapping("/createInKitchen/{kitchenId}")
-	public void createIngredientInKitchen(@RequestBody IngredientDTO ingredientDTO, @PathVariable long kitchenId) {
-		ingredientService.createInKitchen(ingredientDTO, kitchenId);
+	public IngredientDTO createIngredientInKitchen(@RequestBody IngredientDTO ingredientDTO, @PathVariable long kitchenId) {
+		return ingredientService.createInKitchen(ingredientDTO, kitchenId);
 	}
 
 	@PostMapping("createInWishList/{wishListId}")
-	public void createIngredientInWishlist(@RequestBody IngredientDTO ingredientDTO, @PathVariable long wishListId) {
-		ingredientService.createInWishList(ingredientDTO, wishListId);
+	public IngredientDTO createIngredientInWishList(@RequestBody IngredientDTO ingredientDTO, @PathVariable long wishListId) {
+		return ingredientService.createInWishList(ingredientDTO, wishListId);
 	}
 
 }

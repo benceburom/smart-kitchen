@@ -18,7 +18,6 @@ export class TokenInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         this.token = this.authenticationService.getToken();
-        console.log('interceptor ' + this.token);
         const headers = new HttpHeaders({
             'Authorization': `Bearer ${this.token}`,
             'Content-Type': 'application/json'

@@ -1,4 +1,4 @@
-import {Injectable, Output, EventEmitter} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {JwtAuthenticationResponse} from '../model/JwtAuthenticationResponse';
 import {map} from 'rxjs/operators';
@@ -11,10 +11,9 @@ import {Storage} from '@ionic/storage';
 
 @Injectable()
 export class AuthenticationService {
-    @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
     storedToken: String;
 
-    private authUrl = 'http://localhost:8080/api/auth';
+    private authUrl = 'http://192.168.0.24:8080/api/auth';
 
     constructor(private http: HttpClient, private storage: Storage) {
         this.storedToken = '';
@@ -58,11 +57,8 @@ export class AuthenticationService {
         return token && token.length > 0;
     }
 
-    getCurrentUserName(): Observable<string> {
-        return this.http.get<UserSummary>('http://localhost:8080/api/user/me')
-            .pipe(map(data => {
-                return data.userName;
-            }));
+    getCurrentUser(): Observable<UserSummary> {
+        return this.http.get<UserSummary>('http://192.168.0.24:8080/api/user/me');
     }
 
 }

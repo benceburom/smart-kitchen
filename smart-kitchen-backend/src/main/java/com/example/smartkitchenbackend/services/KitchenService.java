@@ -20,19 +20,19 @@ public class KitchenService {
 	private final UserRepository userRepository;
 	private final WishListService wishListService;
 
-	public void create(NewKitchenDTO kitchenDTO) {
+	public NewKitchenDTO create(NewKitchenDTO kitchenDTO) {
 		Kitchen kitchen = new Kitchen();
 		kitchen.setName(kitchenDTO.getName());
 		kitchen.addUser(userRepository.getOne(kitchenDTO.getUserId()));
 		kitchenRepository.save(kitchen);
 		kitchen.setWishList(wishListService.createWishListInKitchen(kitchen));
-		kitchenRepository.save(kitchen);
+		return KitchenConverter.toNewKitchenDTO(kitchenRepository.save(kitchen));
 	}
 
-	void addUserToKitchen(long kitchenId, long userId) {
+	KitchenDTO addUserToKitchen(long kitchenId, long userId) {
 		Kitchen kitchen = kitchenRepository.findById(kitchenId);
 		kitchen.addUser(userRepository.getOne(userId));
-		kitchenRepository.save(kitchen);
+		return KitchenConverter.toKitchenDTO(kitchenRepository.save(kitchen));
 	}
 
 	public Kitchen findById(long kitchenId) {

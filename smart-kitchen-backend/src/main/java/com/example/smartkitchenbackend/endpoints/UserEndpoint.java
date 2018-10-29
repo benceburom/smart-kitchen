@@ -41,7 +41,7 @@ public class UserEndpoint {
 	}
 
 	@PostMapping("/addKitchen")
-	public void addKitchen(@RequestBody AddKitchenDTO addKitchenDTO) {
-		userService.addKitchenToUser(addKitchenDTO.getUserId(), addKitchenDTO.getKitchenId());
+	public KitchenDTO addKitchen(@RequestBody AddKitchenDTO addKitchenDTO) {
+		return userService.addKitchenToUser(addKitchenDTO.getUserId(), addKitchenDTO.getKitchenId());
 	}
 }

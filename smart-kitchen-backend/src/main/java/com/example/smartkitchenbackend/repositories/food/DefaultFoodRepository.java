@@ -25,4 +25,9 @@ public class DefaultFoodRepository implements FoodRepository {
 	public void delete(Food food) {
 		foodJPARepository.delete(food);
 	}
+
+	@Override
+	public Food findReference(long id) {
+		return foodJPARepository.getOne(id);
+	}
 }

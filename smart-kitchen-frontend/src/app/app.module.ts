@@ -12,6 +12,8 @@ import {AuthenticationService} from './services/authentication.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {TokenInterceptor} from './interceptor/token.interceptor';
 import {IonicStorageModule} from '@ionic/storage';
+import {UserService} from './services/user.service';
+import {KitchenService} from './services/kitchen.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -27,6 +29,8 @@ import {IonicStorageModule} from '@ionic/storage';
             useClass: TokenInterceptor,
             multi: true,
         },
+        UserService,
+        KitchenService
     ],
     bootstrap: [AppComponent]
 })

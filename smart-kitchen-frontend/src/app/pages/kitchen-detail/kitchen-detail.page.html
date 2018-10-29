@@ -1,0 +1,15 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>kitchen-detail</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="kitchenDetails != undefined">
+    <div>Kitchen: {{kitchenDetails.name}}</div>
+    <div>Ingredients:</div>
+    <ul>
+        <li *ngFor="let ingredient of kitchenDetails.ingredients;">
+            name: {{ingredient.name}} weight: {{ingredient.weightOrCount}}
+        </li>
+    </ul>
+</ion-content>
