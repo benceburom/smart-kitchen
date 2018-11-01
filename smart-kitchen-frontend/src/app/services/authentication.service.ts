@@ -19,32 +19,31 @@ export class AuthenticationService {
     constructor(private http: HttpClient, private storage: Storage) {
     }
 
-    login(loginRequest: LoginRequest): Observable<boolean> {
+    login(loginRequest: LoginRequest): Promise<boolean> {
         return this.http.post<JwtAuthenticationResponse>(
             this.authUrl + '/signin',
             loginRequest
-        ).pipe(map(data => {
-            console.log('login response map started');
+        ).toPromise().then(async data => {
+            console.log('login response handling started');
             if (data.accessToken) {
-                this.storage.set('currentUser', JSON.stringify({
+                await this.storage.set('currentUser', JSON.stringify({
                     username: loginRequest.usernameOrEmail,
                     token: data.accessToken
-                })).then(() => {
-                    console.log('token setted in current user');
-                    return true;
-                });
+                }));
+                console.log('token setted in current user');
+                return true;
             } else {
                 console.log('return false');
                 return false;
             }
-        }));
+        });
     }
 
     signUp(signUpRequest: SignUpRequest): Observable<ApiResponse> {
         return this.http.post<ApiResponse>(this.authUrl + '/signup', signUpRequest);
     }
 
-    getToken() {
+    getToken(): Promise<String> {
         let currentUser;
         return new Promise(resolve => {
             this.storage.get('currentUser').then(user => {

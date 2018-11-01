@@ -19,18 +19,12 @@ export class HomePage implements OnInit {
     ngOnInit() {
     }
 
-    login() {
-        this.authenticationService.login(this.loginRequest)
-            .subscribe(() => {
-            }, () => {
-                console.log('error');
-            }, () => {
-                console.log('complete');
-                this.getCurrentUserId().then(id => {
-                    console.log(id, 'getcurrent user id res');
-                    this.navCtrl.navigateForward(`/logged-in-user/${id}`);
-                });
-            });
+    async login() {
+        await this.authenticationService.login(this.loginRequest);
+        console.log('complete');
+        const id = await this.getCurrentUserId();
+        console.log(id, 'getcurrent user id res');
+        this.navCtrl.navigateForward(`/logged-in-user/${id}`);
     }
 
     logout() {
