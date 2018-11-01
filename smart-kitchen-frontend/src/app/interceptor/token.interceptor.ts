@@ -17,11 +17,15 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        this.token = this.authenticationService.getToken();
+        this.authenticationService.getToken().then(result => {
+            console.log(result.toString(), 'getToken in interceptor');
+            this.token = result.toString();
+        });
         const headers = new HttpHeaders({
             'Authorization': `Bearer ${this.token}`,
             'Content-Type': 'application/json'
         });
+        console.log(headers, 'headers log');
         const clonedRequest = request.clone({headers});
         return next.handle(clonedRequest);
     }

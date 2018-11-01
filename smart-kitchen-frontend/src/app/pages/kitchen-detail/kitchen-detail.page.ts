@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {KitchenDetailDTO} from '../../model/KitchenDetailDTO';
 import {KitchenService} from '../../services/kitchen.service';
+import {IngredientService} from '../../services/ingredient.service';
+import {IngredientDTO} from '../../model/IngredientDTO';
 
 @Component({
     selector: 'app-kitchen-detail',
@@ -11,8 +13,10 @@ import {KitchenService} from '../../services/kitchen.service';
 export class KitchenDetailPage implements OnInit {
     kitchenId: number;
     kitchenDetails: KitchenDetailDTO;
+    ingredientToAdd: IngredientDTO;
 
-    constructor(private route: ActivatedRoute, private kitchenService: KitchenService) {
+    constructor(private route: ActivatedRoute, private kitchenService: KitchenService, private ingredientService: IngredientService) {
+        this.ingredientToAdd = new IngredientDTO();
     }
 
     ngOnInit() {
@@ -25,8 +29,12 @@ export class KitchenDetailPage implements OnInit {
         this.kitchenService.getKitchenDetails(this.kitchenId).subscribe(data => this.kitchenDetails = data);
     }
 
-    createKitchen() {
-        this.kitchenService;
+    createIngredientInKitchen() {
+        this.ingredientService.createInKitchen(this.ingredientToAdd, this.kitchenId).subscribe(() => {
+        }, () => {
+        }, () => {
+            this.getKitchenDetails();
+        });
     }
 
 }

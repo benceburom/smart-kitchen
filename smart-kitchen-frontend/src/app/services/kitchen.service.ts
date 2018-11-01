@@ -4,7 +4,9 @@ import {Observable} from 'rxjs';
 import {KitchenDetailDTO} from '../model/KitchenDetailDTO';
 import {NewKitchenDTO} from '../model/NewKitchenDTO';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class KitchenService {
     private kitchenEndpointUrl = 'http://192.168.0.24:8080/api/kitchen';
 

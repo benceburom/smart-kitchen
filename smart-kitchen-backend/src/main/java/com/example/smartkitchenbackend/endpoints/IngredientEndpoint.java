@@ -20,5 +20,4 @@ public class IngredientEndpoint {
 	public IngredientDTO createIngredientInWishList(@RequestBody IngredientDTO ingredientDTO, @PathVariable long wishListId) {
 		return ingredientService.createInWishList(ingredientDTO, wishListId);
 	}
-
 }

@@ -14,6 +14,8 @@ import {TokenInterceptor} from './interceptor/token.interceptor';
 import {IonicStorageModule} from '@ionic/storage';
 import {UserService} from './services/user.service';
 import {KitchenService} from './services/kitchen.service';
+import {IngredientService} from './services/ingredient.service';
+import {WishListService} from './services/wish-list.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -30,7 +32,9 @@ import {KitchenService} from './services/kitchen.service';
             multi: true,
         },
         UserService,
-        KitchenService
+        KitchenService,
+        IngredientService,
+        WishListService
     ],
     bootstrap: [AppComponent]
 })

@@ -1,14 +1,13 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>kitchen-detail</ion-title>
+        <ion-title>wish-list</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content padding *ngIf="kitchenDetails != undefined">
-    <div>Kitchen: {{kitchenDetails.name}}</div>
+<ion-content padding>
     <div>Ingredients:</div>
     <ul>
-        <li *ngFor="let ingredient of kitchenDetails.ingredients;">
+        <li *ngFor="let ingredient of ingredients;">
             name: {{ingredient.name}} weight: {{ingredient.weightOrCount}}
         </li>
     </ul>
@@ -23,10 +22,9 @@
                [(ngModel)]="ingredientToAdd.weightOrCount">
     </div>
     <div>
-        <button [disabled]="false" type="submit" class="btn btn-primary" (click)="createIngredientInKitchen()">
+        <button [disabled]="false" type="submit" class="btn btn-primary" (click)="addIngredient()">
             Add Ingredient
         </button>
     </div>
-    <ion-item href="/wish-list/{{kitchenDetails.wishListId}}" routerDirection="forward">Wish list
-    </ion-item>
+
 </ion-content>

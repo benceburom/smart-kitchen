@@ -10,6 +10,7 @@ import {NavController} from '@ionic/angular';
 })
 export class HomePage implements OnInit {
     loginRequest: LoginRequest;
+    token: String;
 
     constructor(private authenticationService: AuthenticationService, private navCtrl: NavController) {
         this.loginRequest = new LoginRequest();
@@ -20,15 +21,15 @@ export class HomePage implements OnInit {
 
     login() {
         this.authenticationService.login(this.loginRequest)
-            .subscribe(result => {
-                if (result) {
-                    this.getCurrentUserId().then(res => {
-                        console.log(res);
-                        this.navCtrl.navigateForward(`/logged-in-user/${res}`);
-                    });
-                }
-            }, error => {
+            .subscribe(() => {
+            }, () => {
                 console.log('error');
+            }, () => {
+                console.log('complete');
+                this.getCurrentUserId().then(id => {
+                    console.log(id, 'getcurrent user id res');
+                    this.navCtrl.navigateForward(`/logged-in-user/${id}`);
+                });
             });
     }
 
@@ -43,5 +44,11 @@ export class HomePage implements OnInit {
             });
         });
 
+    }
+
+    getToken() {
+        this.authenticationService.getToken().then(result => {
+            this.token = result.toString();
+        });
     }
 }

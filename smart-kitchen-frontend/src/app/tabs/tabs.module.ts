@@ -10,6 +10,7 @@ import {HomePageModule} from '../pages/home/home.module';
 import {RegisterPageModule} from '../pages/register/register.module';
 import {LoggedInUserPageModule} from '../pages/logged-in-user/logged-in-user.module';
 import {KitchenDetailPageModule} from '../pages/kitchen-detail/kitchen-detail.module';
+import {WishListPageModule} from '../pages/wish-list/wish-list.module';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import {KitchenDetailPageModule} from '../pages/kitchen-detail/kitchen-detail.mo
         HomePageModule,
         RegisterPageModule,
         LoggedInUserPageModule,
-        KitchenDetailPageModule
+        KitchenDetailPageModule,
+        WishListPageModule
     ],
     declarations: [TabsPage]
 })
