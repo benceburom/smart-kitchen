@@ -39,27 +39,27 @@ public class IngredientService {
 
 	}
 
-	public IngredientDTO createInKitchen(IngredientDTO ingredientDTO, long kitchenId) {
-		if (ingredientRepository.existsByName(ingredientDTO.getName())) {
-			Ingredient ingredient = ingredientRepository.findByName(ingredientDTO.getName());
-			return createIngredientInKitchen(ingredientDTO.getWeightOrCount(), kitchenId, ingredient);
+	public IngredientDTO createInKitchen(NewIngredientDTO newIngredientDTO, long kitchenId) {
+		if (ingredientRepository.existsByName(newIngredientDTO.getName())) {
+			Ingredient ingredient = ingredientRepository.findByName(newIngredientDTO.getName());
+			return createIngredientInKitchen(newIngredientDTO.getWeightOrCount(), kitchenId, ingredient);
 		} else {
 			Ingredient ingredient = new Ingredient();
-			ingredient.setName(ingredientDTO.getName());
+			ingredient.setName(newIngredientDTO.getName());
 			ingredientRepository.save(ingredient);
-			return createIngredientInKitchen(ingredientDTO.getWeightOrCount(), kitchenId, ingredient);
+			return createIngredientInKitchen(newIngredientDTO.getWeightOrCount(), kitchenId, ingredient);
 		}
 	}
 
-	public IngredientDTO createInWishList(IngredientDTO ingredientDTO, long wishListId) {
-		if (ingredientRepository.existsByName(ingredientDTO.getName())) {
-			Ingredient ingredient = ingredientRepository.findByName(ingredientDTO.getName());
-			return createWishedIngredient(ingredientDTO.getWeightOrCount(), wishListId, ingredient);
+	public IngredientDTO createInWishList(NewIngredientDTO newIngredientDTO, long wishListId) {
+		if (ingredientRepository.existsByName(newIngredientDTO.getName())) {
+			Ingredient ingredient = ingredientRepository.findByName(newIngredientDTO.getName());
+			return createWishedIngredient(newIngredientDTO.getWeightOrCount(), wishListId, ingredient);
 		} else {
 			Ingredient ingredient = new Ingredient();
-			ingredient.setName(ingredientDTO.getName());
+			ingredient.setName(newIngredientDTO.getName());
 			ingredientRepository.save(ingredient);
-			return createWishedIngredient(ingredientDTO.getWeightOrCount(), wishListId, ingredient);
+			return createWishedIngredient(newIngredientDTO.getWeightOrCount(), wishListId, ingredient);
 		}
 	}
 

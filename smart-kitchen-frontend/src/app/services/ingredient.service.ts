@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {IngredientDTO} from '../model/IngredientDTO';
 import {Observable} from 'rxjs';
+import { NewIngredientDTO } from '../model/NewIngredientDTO';
 
 @Injectable({
     providedIn: 'root'
@@ -12,11 +13,15 @@ export class IngredientService {
     constructor(private http: HttpClient) {
     }
 
-    createInKitchen(ingredientDTO: IngredientDTO, kitchenId: number): Observable<IngredientDTO> {
-        return this.http.post <IngredientDTO>(this.ingredientEndpointUrl + '/createInKitchen/' + kitchenId.toString(), ingredientDTO);
+    createInKitchen(newIngredientDTO: NewIngredientDTO, kitchenId: number): Observable<IngredientDTO> {
+        return this.http.post <IngredientDTO>(this.ingredientEndpointUrl + '/createInKitchen/' + kitchenId.toString(), newIngredientDTO);
     }
 
-    createInWishList(ingredientDTO: IngredientDTO, wishListId: number): Observable<IngredientDTO> {
-        return this.http.post <IngredientDTO>(this.ingredientEndpointUrl + '/createInWishList/' + wishListId.toString(), ingredientDTO);
+    createInWishList(newIngredientDTO: NewIngredientDTO, wishListId: number): Observable<IngredientDTO> {
+        return this.http.post <IngredientDTO>(this.ingredientEndpointUrl + '/createInWishList/' + wishListId.toString(), newIngredientDTO);
+    }
+
+    removeIngredient(wishedIngredientId: number): Observable<void> {
+        return this.http.delete <void>(this.ingredientEndpointUrl + '/removeFromWishList/' + wishedIngredientId.toString());
     }
 }

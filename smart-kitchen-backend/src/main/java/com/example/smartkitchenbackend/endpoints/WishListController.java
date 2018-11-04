@@ -1,12 +1,10 @@
 package com.example.smartkitchenbackend.endpoints;
 
 import com.example.smartkitchenbackend.DTOs.ingredient.IngredientDTO;
+import com.example.smartkitchenbackend.services.IngredientService;
 import com.example.smartkitchenbackend.services.WishListService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,9 +13,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WishListController {
 	private final WishListService wishListService;
+	private final IngredientService ingredientService;
 
 	@GetMapping("/listIngredients/{id}")
 	public List<IngredientDTO> getIngredients(@PathVariable("id") long id) {
 		return wishListService.findAllIngredientsByWishListId(id);
+	}
+
+	@DeleteMapping("/empty/{wishListId}")
+	public void emptyWishList(@PathVariable long wishListId){
+		ingredientService.emptyWishList(wishListId);
 	}
 }

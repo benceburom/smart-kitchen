@@ -16,4 +16,8 @@ export class WishListService {
     getIngredientsByWishListId(id: number): Observable<IngredientDTO[]> {
         return this.http.get <IngredientDTO[]>(this.wishListControllerUrl + '/listIngredients/' + id.toString());
     }
+
+    emptyWishList(wishListId: number): Observable<void> {
+        return this.http.delete <void>(this.wishListControllerUrl + 'empty' + wishListId.toString());
+    }
 }
