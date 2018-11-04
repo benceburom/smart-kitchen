@@ -38,7 +38,7 @@ public class KitchenConverter {
 				.wishListId(kitchen.getWishList().getId())
 				.ingredients(kitchen.getIngredients()
 						.stream()
-						.map(i -> IngredientConverter.toIngredientDTO(i.getWeightOrCount(), i.getIngredient().getName()))
+						.map(i -> IngredientConverter.toIngredientDTO(i.getWeightOrCount(), i.getIngredient().getName(), i.getId()))
 						.collect(Collectors.toList()))
 				.build();
 	}

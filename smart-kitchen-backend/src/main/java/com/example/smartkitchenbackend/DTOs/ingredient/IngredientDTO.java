@@ -1,4 +1,4 @@
-package com.example.smartkitchenbackend.DTOs;
+package com.example.smartkitchenbackend.DTOs.ingredient;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class IngredientDTO {
+	private long id;
 	private String name;
 	private double weightOrCount;
 }

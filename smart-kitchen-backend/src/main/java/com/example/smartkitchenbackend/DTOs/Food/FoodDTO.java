@@ -1,5 +1,6 @@
-package com.example.smartkitchenbackend.DTOs;
+package com.example.smartkitchenbackend.DTOs.Food;
 
+import com.example.smartkitchenbackend.DTOs.ingredient.NewIngredientDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,5 +15,5 @@ import java.util.List;
 public class FoodDTO {
 	private String name;
 	private long kitchenId;
-	private List<IngredientDTO> ingredients;
+	private List<NewIngredientDTO> ingredients;
 }

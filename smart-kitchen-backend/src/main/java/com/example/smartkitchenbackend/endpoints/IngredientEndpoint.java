@@ -1,6 +1,6 @@
 package com.example.smartkitchenbackend.endpoints;
 
-import com.example.smartkitchenbackend.DTOs.IngredientDTO;
+import com.example.smartkitchenbackend.DTOs.ingredient.IngredientDTO;
 import com.example.smartkitchenbackend.services.IngredientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +16,13 @@ public class IngredientEndpoint {
 		return ingredientService.createInKitchen(ingredientDTO, kitchenId);
 	}
 
-	@PostMapping("createInWishList/{wishListId}")
+	@PostMapping("/createInWishList/{wishListId}")
 	public IngredientDTO createIngredientInWishList(@RequestBody IngredientDTO ingredientDTO, @PathVariable long wishListId) {
 		return ingredientService.createInWishList(ingredientDTO, wishListId);
+	}
+
+	@DeleteMapping("/removeFromWishList/{wishedIngredientId}")
+	public void removeFromWishList(@PathVariable long wishedIngredientId) {
+		ingredientService.removeFromWishList(wishedIngredientId);
 	}
 }

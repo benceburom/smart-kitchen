@@ -8,4 +8,6 @@ public interface WishListRepository {
 	WishList save(WishList wishList);
 
 	void delete(WishList wishList);
+
+	WishList findReference(long wishListId);
 }

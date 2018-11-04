@@ -1,6 +1,6 @@
 package com.example.smartkitchenbackend.services;
 
-import com.example.smartkitchenbackend.DTOs.IngredientDTO;
+import com.example.smartkitchenbackend.DTOs.ingredient.IngredientDTO;
 import com.example.smartkitchenbackend.entities.Kitchen;
 import com.example.smartkitchenbackend.entities.WishList;
 import com.example.smartkitchenbackend.repositories.wishlist.WishListRepository;
@@ -29,7 +29,7 @@ public class WishListService {
 	public List<IngredientDTO> findAllIngredientsByWishListId(long id) {
 		return wishListRepository.findById(id).getIngredients()
 				.stream()
-				.map(wishedIngredient -> IngredientConverter.toIngredientDTO(wishedIngredient.getWeightOrCount(), wishedIngredient.getIngredient().getName()))
+				.map(wishedIngredient -> IngredientConverter.toIngredientDTO(wishedIngredient.getWeightOrCount(), wishedIngredient.getIngredient().getName(), wishedIngredient.getId()))
 				.collect(Collectors.toList());
 	}
 }

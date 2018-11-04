@@ -25,4 +25,9 @@ public class DefaultWishListRepository implements WishListRepository {
 	public void delete(WishList wishList) {
 		wishListJPARepository.delete(wishList);
 	}
+
+	@Override
+	public WishList findReference(long wishListId) {
+		return wishListJPARepository.getOne(wishListId);
+	}
 }

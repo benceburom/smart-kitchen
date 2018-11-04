@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {WishListService} from '../../services/wish-list.service';
-import {IngredientService} from '../../services/ingredient.service';
-import {IngredientDTO} from '../../model/IngredientDTO';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { WishListService } from '../../services/wish-list.service';
+import { IngredientService } from '../../services/ingredient.service';
+import { IngredientDTO } from '../../model/IngredientDTO';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-wish-list',
@@ -20,6 +20,7 @@ export class WishListPage implements OnInit {
 
     ngOnInit() {
         this.wishListId = +this.route.snapshot.paramMap.get('id');
+        this.getIngredients();
     }
 
     getIngredients() {

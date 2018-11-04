@@ -1,6 +1,6 @@
 package com.example.smartkitchenbackend.endpoints;
 
-import com.example.smartkitchenbackend.DTOs.IngredientDTO;
+import com.example.smartkitchenbackend.DTOs.ingredient.IngredientDTO;
 import com.example.smartkitchenbackend.services.WishListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

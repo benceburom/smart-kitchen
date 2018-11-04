@@ -12,4 +12,6 @@ public interface WishedIngredientRepository {
 	Boolean existsByIngredientIdAndWishListId(long id, long wishListId);
 
 	WishedIngredient findByIngredientIdAndWishListId(long id, long wishListId);
+
+	void deleteById(long wishedIngredientId);
 }

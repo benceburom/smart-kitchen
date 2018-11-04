@@ -36,4 +36,9 @@ public class DefaultWishedIngredientRepository implements WishedIngredientReposi
 		return wishedIngredientJPARepository.findByIngredientIdAndWishListId(id, wishListId);
 	}
 
+	@Override
+	public void deleteById(long wishedIngredientId) {
+		wishedIngredientJPARepository.deleteById(wishedIngredientId);
+	}
+
 }

@@ -1,6 +1,6 @@
 package com.example.smartkitchenbackend.services.Converters;
 
-import com.example.smartkitchenbackend.DTOs.IngredientDTO;
+import com.example.smartkitchenbackend.DTOs.ingredient.IngredientDTO;
 import com.example.smartkitchenbackend.entities.*;
 import lombok.experimental.UtilityClass;
 
@@ -23,8 +23,9 @@ public class IngredientConverter {
 		return ingredientInKitchen;
 	}
 
-	public static IngredientDTO toIngredientDTO(double weightOrCount, String name) {
+	public static IngredientDTO toIngredientDTO(double weightOrCount, String name, long id) {
 		return IngredientDTO.builder()
+				.id(id)
 				.name(name)
 				.weightOrCount(weightOrCount)
 				.build();
