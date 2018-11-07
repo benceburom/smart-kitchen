@@ -2,6 +2,7 @@ package com.example.smartkitchenbackend.endpoints;
 
 import com.example.smartkitchenbackend.DTOs.Food.FoodDTO;
 import com.example.smartkitchenbackend.DTOs.Food.FoodDetailDTO;
+import com.example.smartkitchenbackend.DTOs.ingredient.NewIngredientDTO;
 import com.example.smartkitchenbackend.services.FoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -32,5 +33,10 @@ public class FoodEndpoint {
 	@GetMapping("/getMakeAbleFoods/{kitchenId}")
 	public List<FoodDetailDTO> getMakeableFoods(@PathVariable long kitchenId) {
 		return foodService.getMakeableFoodsInKitchen(kitchenId);
+	}
+
+	@GetMapping("/getMissingIngredients/{foodId}")
+	public List<NewIngredientDTO> getMissingIngredients(@PathVariable long foodId) {
+		return foodService.getMissingIngredientsForFood(foodId);
 	}
 }

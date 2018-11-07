@@ -11,6 +11,7 @@ import {RegisterPageModule} from '../pages/register/register.module';
 import {LoggedInUserPageModule} from '../pages/logged-in-user/logged-in-user.module';
 import {KitchenDetailPageModule} from '../pages/kitchen-detail/kitchen-detail.module';
 import {WishListPageModule} from '../pages/wish-list/wish-list.module';
+import {FoodDetailPageModule} from '../pages/food-detail/food-detail.module';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import {WishListPageModule} from '../pages/wish-list/wish-list.module';
         RegisterPageModule,
         LoggedInUserPageModule,
         KitchenDetailPageModule,
-        WishListPageModule
+        WishListPageModule,
+        FoodDetailPageModule
     ],
     declarations: [TabsPage]
 })

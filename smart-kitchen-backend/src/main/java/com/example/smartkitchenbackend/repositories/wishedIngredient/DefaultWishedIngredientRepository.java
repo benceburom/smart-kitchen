@@ -1,10 +1,9 @@
 package com.example.smartkitchenbackend.repositories.wishedIngredient;
 
 import com.example.smartkitchenbackend.entities.WishedIngredient;
+import com.example.smartkitchenbackend.expection.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.EntityNotFoundException;
 
 @RequiredArgsConstructor
 @Repository
@@ -13,7 +12,8 @@ public class DefaultWishedIngredientRepository implements WishedIngredientReposi
 
 	@Override
 	public WishedIngredient findById(long id) {
-		return wishedIngredientJPARepository.findById(id).orElseThrow(EntityNotFoundException::new);
+		return wishedIngredientJPARepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("No wished ingredient exists with id:" + id));
 	}
 
 	@Override

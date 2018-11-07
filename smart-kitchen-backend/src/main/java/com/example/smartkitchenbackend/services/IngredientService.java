@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class IngredientService {
@@ -61,6 +63,10 @@ public class IngredientService {
 			ingredientRepository.save(ingredient);
 			return createWishedIngredient(newIngredientDTO.getWeightOrCount(), wishListId, ingredient);
 		}
+	}
+
+	public void createMultipleInWishList(List<NewIngredientDTO> newIngredientDTOs, long wishListId) {
+		newIngredientDTOs.forEach(newIngredientDTO -> createInWishList(newIngredientDTO, wishListId));
 	}
 
 	private IngredientDTO createIngredientInKitchen(double weightOrCount, long kitchenId, Ingredient ingredient) {

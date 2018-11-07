@@ -1,9 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {KitchenDetailDTO} from '../../model/KitchenDetailDTO';
-import {KitchenService} from '../../services/kitchen.service';
-import {IngredientService} from '../../services/ingredient.service';
-import {IngredientDTO} from '../../model/IngredientDTO';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { KitchenDetailDTO } from '../../model/KitchenDetailDTO';
+import { KitchenService } from '../../services/kitchen.service';
+import { IngredientService } from '../../services/ingredient.service';
+import { IngredientDTO } from '../../model/IngredientDTO';
+import { FoodService } from '../../services/food.service';
+import { FoodDetailDTO } from '../../model/FoodDetailDTO';
+import { Platform } from '@ionic/angular';
 
 @Component({
     selector: 'app-kitchen-detail',
@@ -14,15 +17,23 @@ export class KitchenDetailPage implements OnInit {
     kitchenId: number;
     kitchenDetails: KitchenDetailDTO;
     ingredientToAdd: IngredientDTO;
+    makeAbleFoods: FoodDetailDTO[];
+    foodRecipesInKitchen: FoodDetailDTO[];
 
-    constructor(private route: ActivatedRoute, private kitchenService: KitchenService, private ingredientService: IngredientService) {
+    constructor(
+        private route: ActivatedRoute,
+        private kitchenService: KitchenService,
+        private ingredientService: IngredientService,
+        private foodService: FoodService,
+        private platform: Platform) {
         this.ingredientToAdd = new IngredientDTO();
     }
 
     ngOnInit() {
         this.kitchenId = +this.route.snapshot.paramMap.get('id');
-        console.log('kitchenDetailsPage ' + this.kitchenId);
         this.getKitchenDetails();
+        this.getFoodRecipes();
+        this.getMakeAbleFoods();
     }
 
     getKitchenDetails() {
@@ -36,5 +47,14 @@ export class KitchenDetailPage implements OnInit {
             this.getKitchenDetails();
         });
     }
+
+    getMakeAbleFoods() {
+        this.foodService.getMakeAbleFoods(this.kitchenId).subscribe(makeableFoods => { this.makeAbleFoods = makeableFoods; });
+    }
+
+    getFoodRecipes() {
+        this.foodService.getFoodsByKitchenId(this.kitchenId).subscribe(foodRecipes => { this.foodRecipesInKitchen = foodRecipes; });
+    }
+
 
 }

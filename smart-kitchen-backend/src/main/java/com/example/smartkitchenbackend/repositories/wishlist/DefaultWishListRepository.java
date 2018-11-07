@@ -1,10 +1,9 @@
 package com.example.smartkitchenbackend.repositories.wishlist;
 
 import com.example.smartkitchenbackend.entities.WishList;
+import com.example.smartkitchenbackend.expection.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.EntityNotFoundException;
 
 @RequiredArgsConstructor
 @Repository
@@ -13,7 +12,8 @@ public class DefaultWishListRepository implements WishListRepository {
 
 	@Override
 	public WishList findById(long id) {
-		return wishListJPARepository.findById(id).orElseThrow(EntityNotFoundException::new);
+		return wishListJPARepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("No wish list exists with id:" + id));
 	}
 
 	@Override

@@ -1,5 +1,8 @@
 <ion-header>
     <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
         <ion-title>wish-list</ion-title>
     </ion-toolbar>
 </ion-header>
@@ -13,13 +16,11 @@
     </ul>
     <div>
         <label for="IngredientName">Name</label>
-        <input type="text" class="form-control" id="IngredientName"
-               [(ngModel)]="ingredientToAdd.name">
+        <input type="text" class="form-control" id="IngredientName" [(ngModel)]="ingredientToAdd.name">
     </div>
     <div>
         <label for="IngredientWeight">WeightOrCount</label>
-        <input type="text" class="form-control" id="IngredientWeight"
-               [(ngModel)]="ingredientToAdd.weightOrCount">
+        <input type="text" class="form-control" id="IngredientWeight" [(ngModel)]="ingredientToAdd.weightOrCount">
     </div>
     <div>
         <button [disabled]="false" type="submit" class="btn btn-primary" (click)="addIngredient()">

@@ -1,5 +1,8 @@
 <ion-header>
     <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
         <ion-title>kitchen-detail</ion-title>
     </ion-toolbar>
 </ion-header>
@@ -14,13 +17,11 @@
     </ul>
     <div>
         <label for="IngredientName">Name</label>
-        <input type="text" class="form-control" id="IngredientName"
-               [(ngModel)]="ingredientToAdd.name">
+        <input type="text" class="form-control" id="IngredientName" [(ngModel)]="ingredientToAdd.name">
     </div>
     <div>
         <label for="IngredientWeight">WeightOrCount</label>
-        <input type="text" class="form-control" id="IngredientWeight"
-               [(ngModel)]="ingredientToAdd.weightOrCount">
+        <input type="text" class="form-control" id="IngredientWeight" [(ngModel)]="ingredientToAdd.weightOrCount">
     </div>
     <div>
         <button [disabled]="false" type="submit" class="btn btn-primary" (click)="createIngredientInKitchen()">
@@ -29,4 +30,17 @@
     </div>
     <ion-item href="/wish-list/{{kitchenDetails.wishListId}}" routerDirection="forward">Wish list
     </ion-item>
+    <div>Food recipes:</div>
+    <ul>
+        <li *ngFor="let food of foodRecipesInKitchen;">
+                <ion-item href="/food-detail/{{food.id}}" routerDirection="forward">name: {{food.name}}
+                </ion-item>
+        </li>
+    </ul>
+    <div>Foods that u can make:</div>
+    <ul>
+        <li *ngFor="let makeAbleFood of makeAbleFoods;">
+            name: {{makeAbleFood.name}}
+        </li>
+    </ul>
 </ion-content>

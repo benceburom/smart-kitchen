@@ -6,6 +6,8 @@ import com.example.smartkitchenbackend.services.IngredientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/ingredient")
 @RequiredArgsConstructor
@@ -25,5 +27,10 @@ public class IngredientEndpoint {
 	@DeleteMapping("/removeFromWishList/{wishedIngredientId}")
 	public void removeFromWishList(@PathVariable long wishedIngredientId) {
 		ingredientService.removeFromWishList(wishedIngredientId);
+	}
+
+	@PostMapping("createMultipleInWishList/{wishListId}")
+	public void createMultipleInWishList(@RequestBody List<NewIngredientDTO> newIngredientDTO, @PathVariable long wishListId) {
+		ingredientService.createMultipleInWishList(newIngredientDTO, wishListId);
 	}
 }

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {LoginRequest} from '../../model/LoginRequest';
-import {AuthenticationService} from '../../services/authentication.service';
-import {NavController} from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { LoginRequest } from '../../model/LoginRequest';
+import { AuthenticationService } from '../../services/authentication.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
     selector: 'app-home',
@@ -17,6 +17,7 @@ export class HomePage implements OnInit {
     }
 
     ngOnInit() {
+        this.getToken();
     }
 
     async login() {
@@ -24,7 +25,7 @@ export class HomePage implements OnInit {
         console.log('complete');
         const id = await this.getCurrentUserId();
         console.log(id, 'getcurrent user id res');
-        this.navCtrl.navigateForward(`/logged-in-user/${id}`);
+        this.navCtrl.navigateRoot(`/logged-in-user/${id}`);
     }
 
     logout() {
@@ -40,9 +41,11 @@ export class HomePage implements OnInit {
 
     }
 
-    getToken() {
-        this.authenticationService.getToken().then(result => {
-            this.token = result.toString();
-        });
+    async getToken() {
+        this.token = await this.authenticationService.getToken();
+        if (this.token !== '') {
+            const id = await this.getCurrentUserId();
+            this.navCtrl.navigateRoot(`/logged-in-user/${id}`);
+        }
     }
 }
