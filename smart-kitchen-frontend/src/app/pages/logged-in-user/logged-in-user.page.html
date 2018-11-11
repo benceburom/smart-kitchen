@@ -1,27 +1,23 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>logged-in-user</ion-title>
+        <ion-title>Logged in user: {{nameOfUser}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-    Logged in user details
     <div>
-        <ul>
-            <li *ngFor="let kitchen of kitchens;">
-                <ion-item href="/kitchen-detail/{{kitchen.id}}" routerDirection="forward">{{kitchen.id}}
-                    {{kitchen.name}}
-                </ion-item>
-            </li>
-        </ul>
+        <ion-label color="dark">Your kitchens:</ion-label>
+        <ion-list *ngFor="let kitchen of kitchens;">
+            <ion-item href="/kitchen-detail/{{kitchen.id}}" routerDirection="forward">
+                {{kitchen.name}}
+            </ion-item>
+        </ion-list>
     </div>
     <div>
-        <label for="KitchenName">Kitchen Name</label>
-        <input type="text" class="form-control" id="KitchenName"
-               [(ngModel)]="newKitchen.name">
+        <ion-item>
+            <ion-input required type="text" placeholder="Enter the name of the new kitchen" [(ngModel)]="newKitchen.name"></ion-input>
+        </ion-item>
     </div>
-    <div>
-        <button [disabled]="false" type="submit" class="btn btn-primary" (click)="createKitchen()">Create new kitchen
-        </button>
-    </div>
+    <ion-button disabled="false" type="submit" color="primary" (click)="createKitchen()">Create Kitchen</ion-button>
+
 </ion-content>

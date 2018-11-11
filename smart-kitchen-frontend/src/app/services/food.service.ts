@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FoodDTO } from '../model/FoodDTO';
 import { FoodDetailDTO } from '../model/FoodDetailDTO';
+import { NewIngredientDTO } from '../model/NewIngredientDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,10 @@ export class FoodService {
 
   getMakeAbleFoods(kitchenId: number): Observable<FoodDetailDTO[]> {
     return this.http.get <FoodDetailDTO[]>(this.foodEndpontUrl + '/getMakeAbleFoods/' + kitchenId.toString());
+  }
+
+  getMissingIngredients(foodId: number): Observable<NewIngredientDTO[]> {
+    return this.http.get <NewIngredientDTO[]>(this.foodEndpontUrl + '/getMissingIngredients/' + foodId.toString());
   }
 
 }

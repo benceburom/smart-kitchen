@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add ingredient</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div>
+        <ion-item>
+            <ion-input required type="text" placeholder="Ingredient name" [(ngModel)]="ingredientToAdd.name"></ion-input>
+        </ion-item>
+    </div>
+    <div>
+        <ion-item>
+            <ion-input required type="number" placeholder="Weight Or Count" [(ngModel)]="ingredientToAdd.weightOrCount"></ion-input>
+        </ion-item>
+    </div>
+    <div>
+        <ion-button disabled="false" type="submit" color="primary" (click)="createIngredientInKitchen()">Add Ingredient</ion-button>
+    </div>
+</ion-content>

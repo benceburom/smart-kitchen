@@ -1,9 +1,28 @@
 <ion-header>
   <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button text="Back"></ion-back-button>
+      </ion-buttons>
     <ion-title>food-detail</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-<div>Hello food detail</div>
+<ion-content padding *ngIf="foodDetail != undefined">
+  <div>{{foodDetail.name}}</div>
+  <div>Ingredients in food:</div>
+  <ul>
+    <li *ngFor="let ingredient of foodDetail.ingredients;">
+      <ion-item>
+        name: {{ingredient.name}} weight: {{ingredient.weightOrCount}}
+      </ion-item>
+    </li>
+  </ul>
+  <div>Missing ingredients:</div>
+  <ul>
+      <li *ngFor="let ingredient of missingIngredients;">
+        <ion-item>
+          name: {{ingredient.name}} weight: {{ingredient.weightOrCount}}
+        </ion-item>
+      </li>
+    </ul>
 </ion-content>

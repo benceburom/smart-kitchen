@@ -3,6 +3,7 @@ package com.example.smartkitchenbackend.services;
 import com.example.smartkitchenbackend.DTOs.ingredient.IngredientDTO;
 import com.example.smartkitchenbackend.DTOs.ingredient.NewIngredientDTO;
 import com.example.smartkitchenbackend.entities.*;
+import com.example.smartkitchenbackend.expection.BadRequestException;
 import com.example.smartkitchenbackend.repositories.food.FoodRepository;
 import com.example.smartkitchenbackend.repositories.ingerdientInKitchen.IngredientInKitchenRepository;
 import com.example.smartkitchenbackend.repositories.ingredient.IngredientRepository;
@@ -29,6 +30,7 @@ public class IngredientService {
 
 
 	public NeededIngredient createInFood(NewIngredientDTO newIngredientDTO, Food food) {
+		checkInput(newIngredientDTO);
 		if (ingredientRepository.existsByName(newIngredientDTO.getName())) {
 			Ingredient ingredient = ingredientRepository.findByName(newIngredientDTO.getName());
 			return createIngredientInFood(newIngredientDTO.getWeightOrCount(), food.getId(), ingredient);
@@ -42,6 +44,7 @@ public class IngredientService {
 	}
 
 	public IngredientDTO createInKitchen(NewIngredientDTO newIngredientDTO, long kitchenId) {
+		checkInput(newIngredientDTO);
 		if (ingredientRepository.existsByName(newIngredientDTO.getName())) {
 			Ingredient ingredient = ingredientRepository.findByName(newIngredientDTO.getName());
 			return createIngredientInKitchen(newIngredientDTO.getWeightOrCount(), kitchenId, ingredient);
@@ -54,6 +57,7 @@ public class IngredientService {
 	}
 
 	public IngredientDTO createInWishList(NewIngredientDTO newIngredientDTO, long wishListId) {
+		checkInput(newIngredientDTO);
 		if (ingredientRepository.existsByName(newIngredientDTO.getName())) {
 			Ingredient ingredient = ingredientRepository.findByName(newIngredientDTO.getName());
 			return createWishedIngredient(newIngredientDTO.getWeightOrCount(), wishListId, ingredient);
@@ -115,6 +119,11 @@ public class IngredientService {
 			neededIngredientRepository.save(neededIngredient);
 			return IngredientConverter.toNeededIngredientEntity(weightOrCount, foodRepository.findReference(foodId), ingredient);
 		}
+	}
+
+	private void checkInput(NewIngredientDTO newIngredientDTO) {
+		if(newIngredientDTO.getName() == null || newIngredientDTO.getWeightOrCount() == 0.0)
+			throw new BadRequestException("Invalid input, name and weight must be filled");
 	}
 
 	public void removeFromWishList(long wishedIngredientId) {

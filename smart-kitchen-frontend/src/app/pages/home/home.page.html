@@ -1,27 +1,24 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>Home</ion-title>
+        <ion-title>Login</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <div>
-        <label for="exampleInputUsername">Username</label>
-        <input type="text" class="form-control" id="exampleInputUsername"
-               [(ngModel)]="loginRequest.usernameOrEmail" name="loginRequest.usernameOrEmail">
+        <ion-item>
+            <ion-input required type="text" placeholder="Type in your username or email" [(ngModel)]="loginRequest.usernameOrEmail"></ion-input>
+        </ion-item>
     </div>
     <div>
-        <label for="exampleInputPassword">Password</label>
-        <input type="text" class="form-control" id="exampleInputPassword"
-               [(ngModel)]="loginRequest.password" name="loginRequest.password">
+        <ion-item>
+            <ion-input required type="password" placeholder="Enter your password" [(ngModel)]="loginRequest.password"></ion-input>
+        </ion-item>
     </div>
     <div>
-        <button [disabled]="false" type="submit" class="btn btn-primary" (click)="login()">Login</button>
+        <ion-button expand="full" disabled="false" type="submit" color="primary" (click)="login()">Login</ion-button>
     </div>
     <div>
-        <button [disabled]="false" type="submit" class="btn btn-primary" (click)="logout()">Logout</button>
-    </div>
-    <div>
-        <button [disabled]="false" type="submit" class="btn btn-primary" (click)="getToken()">getCurrentUserId</button>
+        <ion-button expand="full" disabled="false" type="submit" color="primary" href="/register" routerDirection="forward">Register</ion-button>
     </div>
 </ion-content>

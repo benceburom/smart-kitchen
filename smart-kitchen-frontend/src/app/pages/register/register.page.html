@@ -1,32 +1,35 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>register</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button text="Back" color="primary"></ion-back-button>
+        </ion-buttons>
+        <ion-title color="primary">Register</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
     <div>
-        <label for="exampleInputUsername">Username</label>
-        <input type="text" class="form-control" id="exampleInputUsername"
-               [(ngModel)]="signUpRequest.username" name="signUpRequest.username">
+        <ion-item>
+            <ion-input required type="text" placeholder="Type in your username" [(ngModel)]="signUpRequest.username"></ion-input>
+        </ion-item>
     </div>
     <div>
-        <label for="exampleInputPassword">Password</label>
-        <input type="text" class="form-control" id="exampleInputPassword"
-               [(ngModel)]="signUpRequest.password" name="signUpRequest.password">
+        <ion-item>
+            <ion-input required type="password" placeholder="Type in your password" [(ngModel)]="signUpRequest.password"></ion-input>
+        </ion-item>
     </div>
     <div>
-        <label for="exampleInputEmail">Email</label>
-        <input type="text" class="form-control" id="exampleInputEmail"
-               [(ngModel)]="signUpRequest.email" name="signUpRequest.email">
+        <ion-item>
+            <ion-input required type="email" placeholder="Type in your email" [(ngModel)]="signUpRequest.email"></ion-input>
+        </ion-item>
     </div>
     <div>
-        <label for="exampleInputFullName">FullName</label>
-        <input type="text" class="form-control" id="exampleInputFullName"
-               [(ngModel)]="signUpRequest.name" name="signUpRequest.name">
+        <ion-item>
+            <ion-input required type="text" placeholder="Type in your full name" [(ngModel)]="signUpRequest.name"></ion-input>
+        </ion-item>
     </div>
     <div>
-        <button [disabled]="false" type="submit" class="btn btn-primary" (click)="register()">Regisztrálás</button>
+        <ion-button expand="full" disabled="false" type="submit" color="primary" (click)="register()">Register</ion-button>
     </div>
 
 </ion-content>

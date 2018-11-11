@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginRequest } from '../../model/LoginRequest';
 import { AuthenticationService } from '../../services/authentication.service';
-import { NavController } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 
 @Component({
     selector: 'app-home',

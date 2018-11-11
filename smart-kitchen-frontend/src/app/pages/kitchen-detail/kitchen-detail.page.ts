@@ -6,7 +6,9 @@ import { IngredientService } from '../../services/ingredient.service';
 import { IngredientDTO } from '../../model/IngredientDTO';
 import { FoodService } from '../../services/food.service';
 import { FoodDetailDTO } from '../../model/FoodDetailDTO';
-import { Platform } from '@ionic/angular';
+import { NavController, PopoverController } from '@ionic/angular';
+import { LogOutPopoverPage } from '../log-out-popover/log-out-popover.page';
+import { AddIngredientPopoverPage } from '../add-ingredient-popover/add-ingredient-popover.page';
 
 @Component({
     selector: 'app-kitchen-detail',
@@ -16,7 +18,6 @@ import { Platform } from '@ionic/angular';
 export class KitchenDetailPage implements OnInit {
     kitchenId: number;
     kitchenDetails: KitchenDetailDTO;
-    ingredientToAdd: IngredientDTO;
     makeAbleFoods: FoodDetailDTO[];
     foodRecipesInKitchen: FoodDetailDTO[];
 
@@ -25,8 +26,8 @@ export class KitchenDetailPage implements OnInit {
         private kitchenService: KitchenService,
         private ingredientService: IngredientService,
         private foodService: FoodService,
-        private platform: Platform) {
-        this.ingredientToAdd = new IngredientDTO();
+        private navCtrl: NavController,
+        private popoverController: PopoverController) {
     }
 
     ngOnInit() {
@@ -40,13 +41,6 @@ export class KitchenDetailPage implements OnInit {
         this.kitchenService.getKitchenDetails(this.kitchenId).subscribe(data => this.kitchenDetails = data);
     }
 
-    createIngredientInKitchen() {
-        this.ingredientService.createInKitchen(this.ingredientToAdd, this.kitchenId).subscribe(() => {
-        }, () => {
-        }, () => {
-            this.getKitchenDetails();
-        });
-    }
 
     getMakeAbleFoods() {
         this.foodService.getMakeAbleFoods(this.kitchenId).subscribe(makeableFoods => { this.makeAbleFoods = makeableFoods; });
@@ -55,6 +49,31 @@ export class KitchenDetailPage implements OnInit {
     getFoodRecipes() {
         this.foodService.getFoodsByKitchenId(this.kitchenId).subscribe(foodRecipes => { this.foodRecipesInKitchen = foodRecipes; });
     }
+
+    enterWishList() {
+        this.navCtrl.navigateForward(`/wish-list/${this.kitchenDetails.wishListId}`);
+    }
+
+    async openPopover(ev: Event) {
+        const popover = await this.popoverController.create({
+          component: LogOutPopoverPage,
+          event: ev
+        });
+        await popover.present();
+      }
+
+      async openAddIngredientPopover(ev: Event) {
+        const popover = await this.popoverController.create({
+          component: AddIngredientPopoverPage,
+          event: ev,
+          componentProps: {
+            custom_id: this.kitchenId
+          }
+        });
+        await popover.present();
+        await popover.onDidDismiss();
+        this.getKitchenDetails();
+      }
 
 
 }

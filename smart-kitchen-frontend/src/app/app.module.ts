@@ -1,30 +1,38 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {RouteReuseStrategy} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouteReuseStrategy } from '@angular/router';
 
-import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
-import {SplashScreen} from '@ionic-native/splash-screen/ngx';
-import {StatusBar} from '@ionic-native/status-bar/ngx';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {AuthenticationService} from './services/authentication.service';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {TokenInterceptor} from './interceptor/token.interceptor';
-import {IonicStorageModule} from '@ionic/storage';
-import {UserService} from './services/user.service';
-import {KitchenService} from './services/kitchen.service';
-import {IngredientService} from './services/ingredient.service';
-import {WishListService} from './services/wish-list.service';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { AuthenticationService } from './services/authentication.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptor } from './interceptor/token.interceptor';
+import { IonicStorageModule } from '@ionic/storage';
+import { UserService } from './services/user.service';
+import { KitchenService } from './services/kitchen.service';
+import { IngredientService } from './services/ingredient.service';
+import { WishListService } from './services/wish-list.service';
+import { LogOutPopoverPageModule } from './pages/log-out-popover/log-out-popover.module';
+import { AddIngredientPopoverPageModule } from './pages/add-ingredient-popover/add-ingredient-popover.module';
 
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, IonicStorageModule.forRoot()],
+    imports: [BrowserModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        HttpClientModule,
+        IonicStorageModule.forRoot(),
+        LogOutPopoverPageModule,
+        AddIngredientPopoverPageModule],
     providers: [
         StatusBar,
         SplashScreen,
-        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         AuthenticationService,
         {
             provide: HTTP_INTERCEPTORS,
