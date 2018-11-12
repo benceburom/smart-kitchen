@@ -1,6 +1,11 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>Logged in user: {{nameOfUser}}</ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="openLogoutPopover($event)">
+                <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 

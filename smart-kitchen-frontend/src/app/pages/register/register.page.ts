@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from '../../services/authentication.service';
-import {SignUpRequest} from '../../model/SignUpRequest';
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../../services/authentication.service';
+import { SignUpRequest } from '../../model/SignUpRequest';
+import { NavController } from '@ionic/angular';
+import { Toast } from '../../toast/toast';
 
 @Component({
     selector: 'app-register',
@@ -10,10 +12,9 @@ import {SignUpRequest} from '../../model/SignUpRequest';
 export class RegisterPage implements OnInit {
 
     signUpRequest: SignUpRequest;
-    success = '';
 
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private authenticationService: AuthenticationService, private navCtrl: NavController, private toast: Toast) {
         this.signUpRequest = new SignUpRequest();
     }
 
@@ -21,15 +22,31 @@ export class RegisterPage implements OnInit {
     }
 
     register() {
-        this.success = '';
         this.authenticationService.signUp(this.signUpRequest)
             .subscribe(result => {
                 if (result.success) {
-                    console.log('siker');
-                    this.success = 'Sikeres regisztrálás!';
+                    this.toast.presentToastWithOptions({
+                        message: 'Register success',
+                        showCloseButton: true,
+                        position: 'bottom',
+                        closeButtonText: 'Close',
+                        duration: 2000
+                    });
+                    this.navCtrl.navigateRoot(``);
                 }
             }, error => {
-                console.log('error');
+                let myMessage = '';
+                console.log(error);
+                if (error.error.errors) {
+                    myMessage = 'Invalid input';
+                } else { myMessage = error.error.message; }
+                this.toast.presentToastWithOptions({
+                    message: myMessage,
+                    showCloseButton: true,
+                    position: 'bottom',
+                    closeButtonText: 'Close',
+                    duration: 2000
+                });
             });
     }
 

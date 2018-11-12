@@ -9,23 +9,27 @@
 
 <ion-content padding>
     <div>
+        <ion-label color="dark">(3-15 character)</ion-label>
         <ion-item>
-            <ion-input required type="text" placeholder="Type in your username" [(ngModel)]="signUpRequest.username"></ion-input>
+            <ion-input required type="text" placeholder="Username" [(ngModel)]="signUpRequest.username"></ion-input>
         </ion-item>
     </div>
     <div>
+        <ion-label color="dark">(6-20 character)</ion-label>
         <ion-item>
-            <ion-input required type="password" placeholder="Type in your password" [(ngModel)]="signUpRequest.password"></ion-input>
+            <ion-input required type="password" placeholder="Password" [(ngModel)]="signUpRequest.password"></ion-input>
         </ion-item>
     </div>
     <div>
+        <ion-label color="dark">(Valid email address)</ion-label>
         <ion-item>
-            <ion-input required type="email" placeholder="Type in your email" [(ngModel)]="signUpRequest.email"></ion-input>
+            <ion-input required type="email" placeholder="Email" [(ngModel)]="signUpRequest.email"></ion-input>
         </ion-item>
     </div>
     <div>
+        <ion-label color="dark">(4-40 character)</ion-label>
         <ion-item>
-            <ion-input required type="text" placeholder="Type in your full name" [(ngModel)]="signUpRequest.name"></ion-input>
+            <ion-input required type="text" placeholder="Full name" [(ngModel)]="signUpRequest.name"></ion-input>
         </ion-item>
     </div>
     <div>

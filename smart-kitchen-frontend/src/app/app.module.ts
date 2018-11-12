@@ -18,6 +18,8 @@ import { IngredientService } from './services/ingredient.service';
 import { WishListService } from './services/wish-list.service';
 import { LogOutPopoverPageModule } from './pages/log-out-popover/log-out-popover.module';
 import { AddIngredientPopoverPageModule } from './pages/add-ingredient-popover/add-ingredient-popover.module';
+import { AddFoodPopoverPageModule } from './pages/add-food-popover/add-food-popover.module';
+import { Toast } from './toast/toast';
 
 @NgModule({
     declarations: [AppComponent],
@@ -28,7 +30,8 @@ import { AddIngredientPopoverPageModule } from './pages/add-ingredient-popover/a
         HttpClientModule,
         IonicStorageModule.forRoot(),
         LogOutPopoverPageModule,
-        AddIngredientPopoverPageModule],
+        AddIngredientPopoverPageModule,
+        AddFoodPopoverPageModule],
     providers: [
         StatusBar,
         SplashScreen,
@@ -42,7 +45,8 @@ import { AddIngredientPopoverPageModule } from './pages/add-ingredient-popover/a
         UserService,
         KitchenService,
         IngredientService,
-        WishListService
+        WishListService,
+        Toast
     ],
     bootstrap: [AppComponent]
 })

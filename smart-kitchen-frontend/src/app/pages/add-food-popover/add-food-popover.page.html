@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary">Create food recipe</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="closeModal()" color="danger">
+        cancel
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div>
+    <ion-item>
+      <ion-input required type="text" placeholder="Food name" [(ngModel)]="foodToAdd.name"></ion-input>
+    </ion-item>
+  </div>
+  <ion-label color="dark">Ingredients in food recipe:</ion-label>
+  <ion-list *ngFor="let ingredientInFood of ingredients;">
+    <ion-item> {{ingredientInFood.name}} weightOrCount: {{ingredientInFood.weightOrCount}}</ion-item>
+  </ion-list>
+  <ion-label color="dark">Ingredient to add:</ion-label>
+  <div>
+    <ion-item>
+      <ion-input required type="text" placeholder="Ingredient name" [(ngModel)]="ingredientInFood.name"></ion-input>
+    </ion-item>
+  </div>
+  <div>
+    <ion-item>
+      <ion-input required type="number" placeholder="Weight Or Count" [(ngModel)]="ingredientInFood.weightOrCount"></ion-input>
+    </ion-item>
+  </div>
+  <div>
+    <ion-button expand="full" disabled="false" type="submit" color="primary" (click)="createIngredientInFood()">Add
+      Ingredient</ion-button>
+  </div>
+  <div>
+    <ion-button expand="full" disabled="false" type="submit" color="primary" (click)="createFoodInKitchen()">Save
+      recipe</ion-button>
+  </div>
+</ion-content>

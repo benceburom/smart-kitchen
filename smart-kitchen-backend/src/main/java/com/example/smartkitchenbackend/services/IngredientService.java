@@ -69,7 +69,8 @@ public class IngredientService {
 		}
 	}
 
-	public void createMultipleInWishList(List<NewIngredientDTO> newIngredientDTOs, long wishListId) {
+	public void createMultipleInWishList(List<NewIngredientDTO> newIngredientDTOs, long foodId) {
+		long wishListId = foodRepository.findReference(foodId).getKitchen().getWishList().getId();
 		newIngredientDTOs.forEach(newIngredientDTO -> createInWishList(newIngredientDTO, wishListId));
 	}
 

@@ -1,13 +1,14 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Storage} from '@ionic/storage';
-import {LoginRequest} from '../model/LoginRequest';
-import {Observable} from 'rxjs';
-import {JwtAuthenticationResponse} from '../model/JwtAuthenticationResponse';
-import {map} from 'rxjs/operators';
-import {SignUpRequest} from '../model/SignUpRequest';
-import {ApiResponse} from '../model/ApiResponse';
-import {UserSummary} from '../model/UserSummary';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
+import { LoginRequest } from '../model/LoginRequest';
+import { Observable } from 'rxjs';
+import { JwtAuthenticationResponse } from '../model/JwtAuthenticationResponse';
+import { map } from 'rxjs/operators';
+import { SignUpRequest } from '../model/SignUpRequest';
+import { ApiResponse } from '../model/ApiResponse';
+import { UserSummary } from '../model/UserSummary';
+import { Toast } from '../toast/toast';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +17,7 @@ export class AuthenticationService {
 
     private authUrl = 'http://192.168.0.24:8080/api/auth';
 
-    constructor(private http: HttpClient, private storage: Storage) {
+    constructor(private http: HttpClient, private storage: Storage, private toast: Toast) {
     }
 
     login(loginRequest: LoginRequest): Promise<boolean> {
@@ -24,16 +25,13 @@ export class AuthenticationService {
             this.authUrl + '/signin',
             loginRequest
         ).toPromise().then(async data => {
-            console.log('login response handling started');
             if (data.accessToken) {
                 await this.storage.set('currentUser', JSON.stringify({
                     username: loginRequest.usernameOrEmail,
                     token: data.accessToken
                 }));
-                console.log('token setted in current user');
                 return true;
             } else {
-                console.log('return false');
                 return false;
             }
         });

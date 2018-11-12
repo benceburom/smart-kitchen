@@ -21,6 +21,10 @@ export class IngredientService {
         return this.http.post <IngredientDTO>(this.ingredientEndpointUrl + '/createInWishList/' + wishListId.toString(), newIngredientDTO);
     }
 
+    createMultipleInWishList(ingredientsToAdd: NewIngredientDTO[], wishListId): Observable<void> {
+        return this.http.post <void>(this.ingredientEndpointUrl + '/createMultipleInWishList/' + wishListId.toString(), ingredientsToAdd);
+    }
+
     removeIngredient(wishedIngredientId: number): Observable<void> {
         return this.http.delete <void>(this.ingredientEndpointUrl + '/removeFromWishList/' + wishedIngredientId.toString());
     }

@@ -6,9 +6,10 @@ import { IngredientService } from '../../services/ingredient.service';
 import { IngredientDTO } from '../../model/IngredientDTO';
 import { FoodService } from '../../services/food.service';
 import { FoodDetailDTO } from '../../model/FoodDetailDTO';
-import { NavController, PopoverController } from '@ionic/angular';
+import { NavController, PopoverController, ModalController } from '@ionic/angular';
 import { LogOutPopoverPage } from '../log-out-popover/log-out-popover.page';
 import { AddIngredientPopoverPage } from '../add-ingredient-popover/add-ingredient-popover.page';
+import { AddFoodPopoverPage } from '../add-food-popover/add-food-popover.page';
 
 @Component({
     selector: 'app-kitchen-detail',
@@ -24,10 +25,10 @@ export class KitchenDetailPage implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private kitchenService: KitchenService,
-        private ingredientService: IngredientService,
         private foodService: FoodService,
         private navCtrl: NavController,
-        private popoverController: PopoverController) {
+        private popoverController: PopoverController,
+        private modalController: ModalController) {
     }
 
     ngOnInit() {
@@ -54,25 +55,38 @@ export class KitchenDetailPage implements OnInit {
         this.navCtrl.navigateForward(`/wish-list/${this.kitchenDetails.wishListId}`);
     }
 
-    async openPopover(ev: Event) {
+    async openLogoutPopover(ev: Event) {
         const popover = await this.popoverController.create({
-          component: LogOutPopoverPage,
-          event: ev
+            component: LogOutPopoverPage,
+            event: ev
         });
         await popover.present();
-      }
+    }
 
-      async openAddIngredientPopover(ev: Event) {
+    async openAddIngredientPopover(ev: Event) {
         const popover = await this.popoverController.create({
-          component: AddIngredientPopoverPage,
-          event: ev,
-          componentProps: {
-            custom_id: this.kitchenId
-          }
+            component: AddIngredientPopoverPage,
+            event: ev,
+            componentProps: {
+                custom_id: this.kitchenId
+            }
         });
         await popover.present();
         await popover.onDidDismiss();
         this.getKitchenDetails();
+    }
+
+    async openModal() {
+        const modal = await this.modalController.create({
+          component: AddFoodPopoverPage,
+          componentProps: {
+            custom_id: this.kitchenId
+          }
+        });
+        await modal.present();
+        await modal.onDidDismiss();
+        this.getFoodRecipes();
+        this.getMakeAbleFoods();
       }
 
 

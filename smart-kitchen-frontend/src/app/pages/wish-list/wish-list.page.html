@@ -1,31 +1,38 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="Back"></ion-back-button>
+            <ion-back-button color="primary" text="Back"></ion-back-button>
         </ion-buttons>
-        <ion-title>wish-list</ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="openLogoutPopover($event)">
+                <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title color="primary">Wish list</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-    <div>Ingredients:</div>
-    <ul>
-        <li *ngFor="let ingredient of ingredients;">
+    <ion-label color="dark">Wished ingredients:</ion-label>
+    <ion-list *ngFor="let ingredient of ingredients;">
+        <ion-item>
             name: {{ingredient.name}} weight: {{ingredient.weightOrCount}}
-        </li>
-    </ul>
+        </ion-item>
+    </ion-list>
+    <ion-label color="dark">Adding new ingredient</ion-label>
     <div>
-        <label for="IngredientName">Name</label>
-        <input type="text" class="form-control" id="IngredientName" [(ngModel)]="ingredientToAdd.name">
+        <ion-item>
+            <ion-input required type="text" placeholder="Ingredient name" [(ngModel)]="ingredientToAdd.name"></ion-input>
+        </ion-item>
     </div>
     <div>
-        <label for="IngredientWeight">WeightOrCount</label>
-        <input type="text" class="form-control" id="IngredientWeight" [(ngModel)]="ingredientToAdd.weightOrCount">
+        <ion-item>
+            <ion-input required type="number" placeholder="Weight Or Count" [(ngModel)]="ingredientToAdd.weightOrCount"></ion-input>
+        </ion-item>
     </div>
     <div>
-        <button [disabled]="false" type="submit" class="btn btn-primary" (click)="addIngredient()">
-            Add Ingredient
-        </button>
+        <ion-button expand="full" disabled="false" type="submit" color="primary" (click)="addIngredient()">Add
+            Ingredient</ion-button>
     </div>
 
 </ion-content>

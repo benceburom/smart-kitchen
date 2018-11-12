@@ -29,8 +29,8 @@ public class IngredientEndpoint {
 		ingredientService.removeFromWishList(wishedIngredientId);
 	}
 
-	@PostMapping("createMultipleInWishList/{wishListId}")
-	public void createMultipleInWishList(@RequestBody List<NewIngredientDTO> newIngredientDTO, @PathVariable long wishListId) {
-		ingredientService.createMultipleInWishList(newIngredientDTO, wishListId);
+	@PostMapping("createMultipleInWishList/{foodId}")
+	public void createMultipleInWishList(@RequestBody List<NewIngredientDTO> newIngredientDTO, @PathVariable long foodId) {
+		ingredientService.createMultipleInWishList(newIngredientDTO, foodId);
 	}
 }

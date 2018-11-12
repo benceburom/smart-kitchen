@@ -5,6 +5,9 @@ import {KitchenDTO} from '../../model/KitchenDTO';
 import {KitchenService} from '../../services/kitchen.service';
 import {NewKitchenDTO} from '../../model/NewKitchenDTO';
 import { AuthenticationService } from '../../services/authentication.service';
+import { LogOutPopoverPage } from '../log-out-popover/log-out-popover.page';
+import { PopoverController } from '@ionic/angular';
+import { Toast } from '../../toast/toast';
 
 @Component({
     selector: 'app-logged-in-user',
@@ -20,7 +23,9 @@ export class LoggedInUserPage implements OnInit {
     constructor(private userService: UserService,
         private kitchenService: KitchenService,
         private route: ActivatedRoute,
-        private authService: AuthenticationService) {
+        private authService: AuthenticationService,
+        private popoverController: PopoverController,
+        private toast: Toast) {
         this.newKitchen = new NewKitchenDTO();
     }
 
@@ -42,12 +47,28 @@ export class LoggedInUserPage implements OnInit {
         }, () => {
         }, () => {
             this.newKitchen.name = null;
+            this.toast.presentToastWithOptions({
+                message: 'Kitchen created',
+                duration: 2000,
+                showCloseButton: true,
+                position: 'bottom',
+                color: 'success',
+                closeButtonText: 'Close'
+              });
             this.getKitchensByUserId();
         });
     }
 
     getUserName() {
         this.authService.getCurrentUser().subscribe(currentUser => this.nameOfUser = currentUser.name );
+    }
+
+    async openLogoutPopover(ev: Event) {
+        const popover = await this.popoverController.create({
+            component: LogOutPopoverPage,
+            event: ev
+        });
+        await popover.present();
     }
 
 }
