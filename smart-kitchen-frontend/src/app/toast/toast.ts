@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 
-@Component({
-  selector: 'toast'
+@Injectable({
+  providedIn: 'root'
 })
 export class Toast {
 

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BackButtonService } from './services/back-button.service';
 
 const routes: Routes = [
     { path: '', loadChildren: './pages/home/home.module#HomePageModule' },
@@ -16,13 +15,11 @@ const routes: Routes = [
     },
     {
         path: 'add-food-popover',
-        loadChildren: './pages/add-food-popover/add-food-popover.module#AddFoodPopoverPageModule',
-        canDeactivate: [BackButtonService]
+        loadChildren: './pages/add-food-popover/add-food-popover.module#AddFoodPopoverPageModule'
     },
     {
         path: 'add-user-to-kitchen-modal',
-        loadChildren: './pages/add-user-to-kitchen-modal/add-user-to-kitchen-modal.module#AddUserToKitchenModalPageModule',
-        canDeactivate: [BackButtonService]
+        loadChildren: './pages/add-user-to-kitchen-modal/add-user-to-kitchen-modal.module#AddUserToKitchenModalPageModule'
     }
 ];
 

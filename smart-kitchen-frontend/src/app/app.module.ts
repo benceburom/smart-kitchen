@@ -21,7 +21,6 @@ import { AddIngredientPopoverPageModule } from './pages/add-ingredient-popover/a
 import { AddFoodPopoverPageModule } from './pages/add-food-popover/add-food-popover.module';
 import { Toast } from './toast/toast';
 import { AddUserToKitchenModalPageModule } from './pages/add-user-to-kitchen-modal/add-user-to-kitchen-modal.module';
-import { BackButtonService } from './services/back-button.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -49,8 +48,7 @@ import { BackButtonService } from './services/back-button.service';
         KitchenService,
         IngredientService,
         WishListService,
-        Toast,
-        BackButtonService
+        Toast
     ],
     bootstrap: [AppComponent]
 })

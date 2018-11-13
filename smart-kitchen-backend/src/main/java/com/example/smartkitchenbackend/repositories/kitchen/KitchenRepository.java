@@ -12,4 +12,6 @@ public interface KitchenRepository {
 	void delete(Kitchen kitchen);
 
 	List<Kitchen> findAll();
+
+	int numberOfKitchensWithSimilarNames(String name);
 }

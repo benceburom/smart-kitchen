@@ -32,4 +32,9 @@ public class DefaultKitchenRepository implements KitchenRepository {
 	public List<Kitchen> findAll() {
 		return kitchenJPARepository.findAll();
 	}
+
+	@Override
+	public int numberOfKitchensWithSimilarNames(String name) {
+		return kitchenJPARepository.findByNameContaining(name + "#").size();
+	}
 }

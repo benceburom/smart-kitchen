@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {Platform} from '@ionic/angular';
+import {Platform, AlertController} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 
@@ -12,7 +12,8 @@ export class AppComponent {
     constructor(
         private platform: Platform,
         private splashScreen: SplashScreen,
-        private statusBar: StatusBar
+        private statusBar: StatusBar,
+        public alertController: AlertController
     ) {
         this.initializeApp();
         this.backButtonEvent();
@@ -27,8 +28,28 @@ export class AppComponent {
 
     backButtonEvent() {
         this.platform.backButton.subscribe(() => {
-            console.log('exit should happen');
-            // navigator['app'].exitApp();
+            this.presentAlert();
         });
     }
+
+    async presentAlert() {
+        const alert = await this.alertController.create({
+          header: 'Exit app',
+          message: 'Do you want to exit the application?',
+          buttons: [{
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              alert.dismiss();
+            }
+          }, {
+            text: 'Ok',
+            handler: () => {
+                navigator['app'].exitApp();
+            }
+          }]
+        });
+        await alert.present();
+      }
 }

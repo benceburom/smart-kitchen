@@ -22,7 +22,8 @@ public class KitchenService {
 
 	public NewKitchenDTO create(NewKitchenDTO kitchenDTO) {
 		Kitchen kitchen = new Kitchen();
-		kitchen.setName(kitchenDTO.getName());
+		int uniqueNumberForName = kitchenRepository.numberOfKitchensWithSimilarNames(kitchenDTO.getName()) +1001;
+		kitchen.setName(kitchenDTO.getName() + "#" + uniqueNumberForName);
 		kitchen.addUser(userRepository.getOne(kitchenDTO.getUserId()));
 		kitchenRepository.save(kitchen);
 		kitchen.setWishList(wishListService.createWishListInKitchen(kitchen));
