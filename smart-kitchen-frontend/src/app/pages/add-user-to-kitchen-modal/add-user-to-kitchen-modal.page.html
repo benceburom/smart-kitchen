@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Adding user to kitchen</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="closeModal()" color="danger">
+        cancel
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="filterItems($event)" type="search" show-cancel-button debounce="500">
+  </ion-searchbar>
+  <ion-list *ngFor="let user of filteredUsers">
+    <ion-item>
+      {{user.userName}}
+      <ion-buttons slot="end">
+        <ion-button (click)="addUserToKitchen(user.id)">
+          <ion-icon slot="icon-only" name="add-circle" color="primary"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

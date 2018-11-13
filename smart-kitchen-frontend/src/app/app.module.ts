@@ -20,6 +20,8 @@ import { LogOutPopoverPageModule } from './pages/log-out-popover/log-out-popover
 import { AddIngredientPopoverPageModule } from './pages/add-ingredient-popover/add-ingredient-popover.module';
 import { AddFoodPopoverPageModule } from './pages/add-food-popover/add-food-popover.module';
 import { Toast } from './toast/toast';
+import { AddUserToKitchenModalPageModule } from './pages/add-user-to-kitchen-modal/add-user-to-kitchen-modal.module';
+import { BackButtonService } from './services/back-button.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -31,7 +33,8 @@ import { Toast } from './toast/toast';
         IonicStorageModule.forRoot(),
         LogOutPopoverPageModule,
         AddIngredientPopoverPageModule,
-        AddFoodPopoverPageModule],
+        AddFoodPopoverPageModule,
+        AddUserToKitchenModalPageModule],
     providers: [
         StatusBar,
         SplashScreen,
@@ -46,7 +49,8 @@ import { Toast } from './toast/toast';
         KitchenService,
         IngredientService,
         WishListService,
-        Toast
+        Toast,
+        BackButtonService
     ],
     bootstrap: [AppComponent]
 })

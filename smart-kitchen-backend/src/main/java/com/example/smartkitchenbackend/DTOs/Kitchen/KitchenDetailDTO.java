@@ -18,4 +18,5 @@ public class KitchenDetailDTO {
 	private String name;
 	private List<IngredientDTO> ingredients;
 	private long wishListId;
+	private List<Long> userIds;
 }

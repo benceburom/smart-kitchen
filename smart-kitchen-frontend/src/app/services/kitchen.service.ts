@@ -17,6 +17,11 @@ export class KitchenService {
         return this.http.get <KitchenDetailDTO>(this.kitchenEndpointUrl + '/kitchenDetails/' + kitchenId.toString());
     }
 
+    getUserIdsInKitchen(kitchenId: number): Promise<number[]> {
+        return this.http.get<KitchenDetailDTO>(this.kitchenEndpointUrl + '/kitchenDetails/' + kitchenId.toString())
+            .toPromise().then(data => data.userIds);
+    }
+
     createKitchen(newKitchenDTO: NewKitchenDTO): Observable<NewKitchenDTO> {
         return this.http.post <NewKitchenDTO>(this.kitchenEndpointUrl + '/create/', newKitchenDTO);
     }

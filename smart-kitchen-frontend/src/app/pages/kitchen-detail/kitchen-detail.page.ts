@@ -10,6 +10,7 @@ import { NavController, PopoverController, ModalController } from '@ionic/angula
 import { LogOutPopoverPage } from '../log-out-popover/log-out-popover.page';
 import { AddIngredientPopoverPage } from '../add-ingredient-popover/add-ingredient-popover.page';
 import { AddFoodPopoverPage } from '../add-food-popover/add-food-popover.page';
+import { AddUserToKitchenModalPage } from '../add-user-to-kitchen-modal/add-user-to-kitchen-modal.page';
 
 @Component({
     selector: 'app-kitchen-detail',
@@ -76,7 +77,7 @@ export class KitchenDetailPage implements OnInit {
         this.getKitchenDetails();
     }
 
-    async openModal() {
+    async openAddFoodModal() {
         const modal = await this.modalController.create({
           component: AddFoodPopoverPage,
           componentProps: {
@@ -87,6 +88,16 @@ export class KitchenDetailPage implements OnInit {
         await modal.onDidDismiss();
         this.getFoodRecipes();
         this.getMakeAbleFoods();
+      }
+
+      async openAddUserModal() {
+        const modal = await this.modalController.create({
+          component: AddUserToKitchenModalPage,
+          componentProps: {
+            custom_id: this.kitchenId
+          }
+        });
+        await modal.present();
       }
 
 

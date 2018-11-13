@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BackButtonService } from './services/back-button.service';
 
 const routes: Routes = [
     { path: '', loadChildren: './pages/home/home.module#HomePageModule' },
@@ -9,9 +10,20 @@ const routes: Routes = [
     { path: 'wish-list/:id', loadChildren: './pages/wish-list/wish-list.module#WishListPageModule' },
     { path: 'food-detail/:id', loadChildren: './pages/food-detail/food-detail.module#FoodDetailPageModule' },
     { path: 'log-out-popover', loadChildren: './pages/log-out-popover/log-out-popover.module#LogOutPopoverPageModule' },
-    { path: 'add-ingredient-popover',
-     loadChildren: './pages/add-ingredient-popover/add-ingredient-popover.module#AddIngredientPopoverPageModule' },
-  { path: 'add-food-popover', loadChildren: './pages/add-food-popover/add-food-popover.module#AddFoodPopoverPageModule' }
+    {
+        path: 'add-ingredient-popover',
+        loadChildren: './pages/add-ingredient-popover/add-ingredient-popover.module#AddIngredientPopoverPageModule'
+    },
+    {
+        path: 'add-food-popover',
+        loadChildren: './pages/add-food-popover/add-food-popover.module#AddFoodPopoverPageModule',
+        canDeactivate: [BackButtonService]
+    },
+    {
+        path: 'add-user-to-kitchen-modal',
+        loadChildren: './pages/add-user-to-kitchen-modal/add-user-to-kitchen-modal.module#AddUserToKitchenModalPageModule',
+        canDeactivate: [BackButtonService]
+    }
 ];
 
 @NgModule({

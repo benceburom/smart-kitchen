@@ -4,6 +4,7 @@ import com.example.smartkitchenbackend.DTOs.Kitchen.KitchenDTO;
 import com.example.smartkitchenbackend.DTOs.Kitchen.KitchenDetailDTO;
 import com.example.smartkitchenbackend.DTOs.Kitchen.NewKitchenDTO;
 import com.example.smartkitchenbackend.entities.Kitchen;
+import com.example.smartkitchenbackend.entities.User;
 import lombok.experimental.UtilityClass;
 
 import java.util.stream.Collectors;
@@ -39,6 +40,10 @@ public class KitchenConverter {
 				.ingredients(kitchen.getIngredients()
 						.stream()
 						.map(i -> IngredientConverter.toIngredientDTO(i.getWeightOrCount(), i.getIngredient().getName(), i.getId()))
+						.collect(Collectors.toList()))
+				.userIds(kitchen.getUsers()
+						.stream()
+						.map(User::getId)
 						.collect(Collectors.toList()))
 				.build();
 	}

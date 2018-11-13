@@ -56,11 +56,6 @@ export class AuthenticationService {
         this.storage.remove('currentUser');
     }
 
-    // isLoggedIn(): boolean {
-    //     const token: String = this.getToken();
-    //     return token && token.length > 0;
-    // }
-
     getCurrentUser(): Observable<UserSummary> {
         return this.http.get<UserSummary>('http://192.168.0.24:8080/api/user/me');
     }

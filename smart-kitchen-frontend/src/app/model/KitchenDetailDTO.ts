@@ -5,4 +5,5 @@ export class KitchenDetailDTO {
     name: String;
     ingredients: IngredientDTO[];
     wishListId: number;
+    userIds: number[];
 }

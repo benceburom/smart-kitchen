@@ -24,7 +24,7 @@ export class AddFoodPopoverPage implements OnInit {
   ngOnInit() {
     this.foodToAdd = new FoodDTO();
     this.kitchenId = this.navParams.get('custom_id');
-    this.ingredientInFood = new NewIngredientDTO;
+    this.ingredientInFood = new NewIngredientDTO();
   }
 
   createFoodInKitchen() {

@@ -21,7 +21,8 @@
         </ion-item>
     </ion-virtual-scroll>
     <ion-button (click)="openAddIngredientPopover($event)">Add Ingredient</ion-button>
-    <ion-button (click)="openModal()">Add FoodRecipe</ion-button>
+    <ion-button (click)="openAddFoodModal()">Add FoodRecipe</ion-button>
+    <ion-button (click)="openAddUserModal()">Add user to kitchen</ion-button>
     <div>Food recipes:</div>
     <ion-list *ngFor="let food of foodRecipesInKitchen;">
         <ion-item href="/food-detail/{{food.id}}" routerDirection="forward">name: {{food.name}}</ion-item>

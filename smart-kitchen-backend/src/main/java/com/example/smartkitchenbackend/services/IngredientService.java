@@ -74,6 +74,10 @@ public class IngredientService {
 		newIngredientDTOs.forEach(newIngredientDTO -> createInWishList(newIngredientDTO, wishListId));
 	}
 
+	public void createMultipleInKitchen(List<NewIngredientDTO> newIngredientDTOs, long kitchenId) {
+		newIngredientDTOs.forEach(newIngredientDTO -> createInKitchen(newIngredientDTO, kitchenId));
+	}
+
 	private IngredientDTO createIngredientInKitchen(double weightOrCount, long kitchenId, Ingredient ingredient) {
 		if (ingredientInKitchenRepository.existsByIngredientIdAndKitchenId(ingredient.getId(), kitchenId)) {
 			IngredientInKitchen ingredientInKitchen = ingredientInKitchenRepository.findByIngredientIdAndKitchenId(ingredient.getId(), kitchenId);
