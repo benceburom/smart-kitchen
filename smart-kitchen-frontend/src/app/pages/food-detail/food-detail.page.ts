@@ -47,7 +47,7 @@ export class FoodDetailPage implements OnInit {
   }
 
   addMissingIngredientsToWishList() {
-    this.ingredientService.createMultipleInWishList(this.missingIngredients, this.foodId).subscribe(() => {
+    this.ingredientService.createMultipleInWishListFromFood(this.missingIngredients, this.foodId).subscribe(() => {
       this.toast.presentToastWithOptions({
         message: 'Ingredients added to wishlist',
         duration: 2000,

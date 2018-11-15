@@ -8,7 +8,7 @@ import {NewKitchenDTO} from '../model/NewKitchenDTO';
     providedIn: 'root'
 })
 export class KitchenService {
-    private kitchenEndpointUrl = 'http://192.168.0.24:8080/api/kitchen';
+    private kitchenEndpointUrl = 'http://localhost:8080/api/kitchen';
 
     constructor(private http: HttpClient) {
     }

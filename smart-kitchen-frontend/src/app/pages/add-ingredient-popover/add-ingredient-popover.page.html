@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Add ingredient</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Add ingredient</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
@@ -12,7 +12,13 @@
     </div>
     <div>
         <ion-item>
-            <ion-input required type="number" placeholder="Weight Or Count" [(ngModel)]="ingredientToAdd.weightOrCount"></ion-input>
+            <ion-input required type="number" placeholder="Amount" [(ngModel)]="ingredientToAdd.weightOrCount"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Measurement:</ion-label>
+            <ion-select cancelText="Cancel" okText="Ok" [(ngModel)]="ingredientToAdd.type">
+                <ion-select-option *ngFor="let type of types" value="{{type}}">{{type}}</ion-select-option>
+            </ion-select>
         </ion-item>
     </div>
     <div>

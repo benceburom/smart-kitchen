@@ -10,7 +10,7 @@ import { NewIngredientDTO } from '../model/NewIngredientDTO';
 })
 export class FoodService {
 
-  private foodEndpontUrl = 'http://192.168.0.24:8080/api/food';
+  private foodEndpontUrl = 'http://localhost:8080/api/food';
 
   constructor(private http: HttpClient) {
   }

@@ -17,7 +17,7 @@
   </div>
   <ion-label color="dark">Ingredients in food recipe:</ion-label>
   <ion-list *ngFor="let ingredientInFood of ingredients;">
-    <ion-item> {{ingredientInFood.name}} weightOrCount: {{ingredientInFood.weightOrCount}}</ion-item>
+    <ion-item> {{ingredientInFood.name}}: {{ingredientInFood.weightOrCount}} {{ingredientInFood.type}}</ion-item>
   </ion-list>
   <ion-label color="dark">Ingredient to add:</ion-label>
   <div>
@@ -29,6 +29,12 @@
     <ion-item>
       <ion-input required type="number" placeholder="Weight Or Count" [(ngModel)]="ingredientInFood.weightOrCount"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label>Measurement:</ion-label>
+      <ion-select cancelText="Cancel" okText="Ok" [(ngModel)]="ingredientInFood.type">
+          <ion-select-option *ngFor="let type of types" value="{{type}}">{{type}}</ion-select-option>
+      </ion-select>
+  </ion-item>
   </div>
   <div>
     <ion-button expand="full" disabled="false" type="submit" color="primary" (click)="createIngredientInFood()">Add

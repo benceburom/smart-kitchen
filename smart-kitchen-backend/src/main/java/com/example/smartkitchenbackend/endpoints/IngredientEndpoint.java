@@ -12,25 +12,30 @@ import java.util.List;
 @RequestMapping("/api/ingredient")
 @RequiredArgsConstructor
 public class IngredientEndpoint {
-	private final IngredientService ingredientService;
+    private final IngredientService ingredientService;
 
-	@PostMapping("/createInKitchen/{kitchenId}")
-	public IngredientDTO createIngredientInKitchen(@RequestBody NewIngredientDTO newIngredientDTO, @PathVariable long kitchenId) {
-		return ingredientService.createInKitchen(newIngredientDTO, kitchenId);
-	}
+    @PostMapping("/createInKitchen/{kitchenId}")
+    public IngredientDTO createIngredientInKitchen(@RequestBody NewIngredientDTO newIngredientDTO, @PathVariable long kitchenId) {
+        return ingredientService.createInKitchen(newIngredientDTO, kitchenId);
+    }
 
-	@PostMapping("/createInWishList/{wishListId}")
-	public IngredientDTO createIngredientInWishList(@RequestBody NewIngredientDTO newIngredientDTO, @PathVariable long wishListId) {
-		return ingredientService.createInWishList(newIngredientDTO, wishListId);
-	}
+    @PostMapping("/createInWishList/{wishListId}")
+    public IngredientDTO createIngredientInWishList(@RequestBody NewIngredientDTO newIngredientDTO, @PathVariable long wishListId) {
+        return ingredientService.createInWishList(newIngredientDTO, wishListId);
+    }
 
-	@DeleteMapping("/removeFromWishList/{wishedIngredientId}")
-	public void removeFromWishList(@PathVariable long wishedIngredientId) {
-		ingredientService.removeFromWishList(wishedIngredientId);
-	}
+    @DeleteMapping("/removeFromWishList/{wishedIngredientId}")
+    public void removeFromWishList(@PathVariable long wishedIngredientId) {
+        ingredientService.removeFromWishList(wishedIngredientId);
+    }
 
-	@PostMapping("createMultipleInWishList/{foodId}")
-	public void createMultipleInWishList(@RequestBody List<NewIngredientDTO> newIngredientDTO, @PathVariable long foodId) {
-		ingredientService.createMultipleInWishList(newIngredientDTO, foodId);
-	}
+    @PostMapping("createMultipleInWishListFromFood/{foodId}")
+    public void createMultipleInWishListFromFood(@RequestBody List<NewIngredientDTO> newIngredientDTO, @PathVariable long foodId) {
+        ingredientService.createMultipleInWishList(newIngredientDTO, foodId);
+    }
+
+    @PostMapping("createMultipleInKitchenFromWishList/{wishListId}")
+    public void createMultipleInKitchen(@RequestBody List<NewIngredientDTO> newIngredientDTO, @PathVariable long wishListId) {
+        ingredientService.createMultipleInKitchen(newIngredientDTO, wishListId);
+    }
 }

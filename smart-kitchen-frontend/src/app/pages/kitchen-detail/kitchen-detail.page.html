@@ -13,16 +13,16 @@
 </ion-header>
 
 <ion-content padding *ngIf="kitchenDetails != undefined">
-    <ion-button disabled="false" type="submit" color="primary" (click)="enterWishList()">Enter wish list</ion-button>
+    <ion-button expand="full" disabled="false" type="submit" color="primary" (click)="enterWishList()">Enter wish list</ion-button>
+    <ion-button expand="full" (click)="openAddUserModal()">Add user to kitchen</ion-button>
     <ion-label color="dark">Ingredients in kitchen:</ion-label>
     <ion-virtual-scroll [items]="kitchenDetails.ingredients">
         <ion-item *virtualItem="let ingredient">
-            {{ingredient.name}} weight: {{ingredient.weightOrCount}}
+            {{ingredient.name}}: {{ingredient.weightOrCount}} {{ingredient.type}}
         </ion-item>
     </ion-virtual-scroll>
     <ion-button (click)="openAddIngredientPopover($event)">Add Ingredient</ion-button>
     <ion-button (click)="openAddFoodModal()">Add FoodRecipe</ion-button>
-    <ion-button (click)="openAddUserModal()">Add user to kitchen</ion-button>
     <div>Food recipes:</div>
     <ion-list *ngFor="let food of foodRecipesInKitchen;">
         <ion-item href="/food-detail/{{food.id}}" routerDirection="forward">name: {{food.name}}</ion-item>

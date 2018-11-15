@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class NewIngredientDTO {
-	private String name;
-	private double weightOrCount;
+    private String name;
+    private double weightOrCount;
+    private String type;
 }

@@ -4,6 +4,7 @@ import { NavParams, ModalController } from '@ionic/angular';
 import { FoodService } from '../../services/food.service';
 import { NewIngredientDTO } from '../../model/NewIngredientDTO';
 import { Toast } from '../../toast/toast';
+import { IngredientTypeEnum } from '../../model/IngredientTypeEnum';
 
 @Component({
   selector: 'app-add-food-popover',
@@ -15,6 +16,7 @@ export class AddFoodPopoverPage implements OnInit {
   foodToAdd: FoodDTO;
   ingredientInFood: NewIngredientDTO;
   ingredients = [];
+  types: String[];
 
   constructor(private navParams: NavParams,
     private modalController: ModalController,
@@ -25,6 +27,7 @@ export class AddFoodPopoverPage implements OnInit {
     this.foodToAdd = new FoodDTO();
     this.kitchenId = this.navParams.get('custom_id');
     this.ingredientInFood = new NewIngredientDTO();
+    this.types = Object.keys(IngredientTypeEnum).map(key => { return IngredientTypeEnum[key]});
   }
 
   createFoodInKitchen() {
@@ -46,10 +49,11 @@ export class AddFoodPopoverPage implements OnInit {
   }
 
   async createIngredientInFood() {
-    console.log(this.ingredientInFood);
+    if (this.ingredientInFood.type === null) this.ingredientInFood.type = '';
     const ingredientToPush = new NewIngredientDTO();
     ingredientToPush.name = this.ingredientInFood.name;
     ingredientToPush.weightOrCount = this.ingredientInFood.weightOrCount;
+    ingredientToPush.type = this.ingredientInFood.type;
     await this.ingredients.push(ingredientToPush);
     this.toast.presentToastWithOptions({
       message: 'Ingredient added to recipe',
@@ -61,6 +65,7 @@ export class AddFoodPopoverPage implements OnInit {
     });
     this.ingredientInFood.name = null;
     this.ingredientInFood.weightOrCount = null;
+    this.ingredientInFood.type = null;
   }
 
   closeModal() {

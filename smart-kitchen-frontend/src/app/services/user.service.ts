@@ -10,7 +10,7 @@ import { AddKitchenDTO } from '../model/AddKitchenDTO';
 })
 export class UserService {
 
-    private userEndpointUrl = 'http://192.168.0.24:8080/api/user';
+    private userEndpointUrl = 'http://localhost:8080/api/user';
 
     constructor(private http: HttpClient) {
     }

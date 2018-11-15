@@ -38,7 +38,7 @@ export class RegisterPage implements OnInit {
                 let myMessage = '';
                 console.log(error);
                 if (error.error.errors) {
-                    myMessage = 'Invalid input';
+                    myMessage = 'Invalid ' + error.error.errors[0].field;
                 } else { myMessage = error.error.message; }
                 this.toast.presentToastWithOptions({
                     message: myMessage,

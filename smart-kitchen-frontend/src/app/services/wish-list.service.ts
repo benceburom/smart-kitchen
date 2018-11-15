@@ -8,7 +8,7 @@ import {IngredientDTO} from '../model/IngredientDTO';
 })
 export class WishListService {
 
-    private wishListControllerUrl = 'http://192.168.0.24:8080/api/wishList';
+    private wishListControllerUrl = 'http://localhost:8080/api/wishList';
 
     constructor(private http: HttpClient) {
     }
@@ -18,6 +18,6 @@ export class WishListService {
     }
 
     emptyWishList(wishListId: number): Observable<void> {
-        return this.http.delete <void>(this.wishListControllerUrl + 'empty' + wishListId.toString());
+        return this.http.delete <void>(this.wishListControllerUrl + '/empty/' + wishListId.toString());
     }
 }

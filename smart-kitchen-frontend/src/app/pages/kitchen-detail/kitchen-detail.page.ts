@@ -39,6 +39,12 @@ export class KitchenDetailPage implements OnInit {
         this.getMakeAbleFoods();
     }
 
+    ionViewWillEnter() {
+        this.getKitchenDetails();
+        this.getFoodRecipes();
+        this.getMakeAbleFoods();
+    }
+
     getKitchenDetails() {
         this.kitchenService.getKitchenDetails(this.kitchenId).subscribe(data => this.kitchenDetails = data);
     }

@@ -16,13 +16,13 @@
   <ion-label color="dark">Ingredients in food:</ion-label>
   <ion-list *ngFor="let ingredient of foodDetail.ingredients;">
     <ion-item>
-      name: {{ingredient.name}} weight: {{ingredient.weightOrCount}}
+      {{ingredient.name}}: {{ingredient.weightOrCount}} {{ingredient.type}}
     </ion-item>
   </ion-list>
   <ion-label color="dark">Missing ingredients:</ion-label>
   <ion-list *ngFor="let ingredient of missingIngredients;">
     <ion-item>
-      name: {{ingredient.name}} weight: {{ingredient.weightOrCount}}
+      {{ingredient.name}}: {{ingredient.weightOrCount}} {{ingredient.type}}
     </ion-item>
   </ion-list>
   <ion-button expand="full" (click)="addMissingIngredientsToWishList()">Add missing ingredients to wishlist</ion-button>

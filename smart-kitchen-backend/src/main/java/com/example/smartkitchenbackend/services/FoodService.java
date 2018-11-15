@@ -20,98 +20,105 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class FoodService {
-	private final FoodRepository foodRepository;
-	private final KitchenService kitchenService;
-	private final IngredientService ingredientService;
+    private final FoodRepository foodRepository;
+    private final KitchenService kitchenService;
+    private final IngredientService ingredientService;
 
 
-	public FoodDTO create(FoodDTO foodDTO) {
-		Food food = new Food();
-		food.setKitchen(kitchenService.findById(foodDTO.getKitchenId()));
-		food.setName(foodDTO.getName());
-		foodRepository.save(food);
-		food.setIngredients(foodDTO.getIngredients()
-				.stream()
-				.map(newIngredientDTO -> ingredientService.createInFood(newIngredientDTO, food))
-				.collect(Collectors.toList()));
-		return FoodConverter.toFoodDTO(foodRepository.save(food), foodDTO.getIngredients());
-	}
+    public FoodDTO create(FoodDTO foodDTO) {
+        Food food = new Food();
+        food.setKitchen(kitchenService.findById(foodDTO.getKitchenId()));
+        food.setName(foodDTO.getName());
+        foodRepository.save(food);
+        food.setIngredients(foodDTO.getIngredients()
+                .stream()
+                .map(newIngredientDTO -> ingredientService.createInFood(newIngredientDTO, food))
+                .collect(Collectors.toList()));
+        return FoodConverter.toFoodDTO(foodRepository.save(food), foodDTO.getIngredients());
+    }
 
-	public List<FoodDetailDTO> getFoodsByKitchenId(long kitchenId) {
-		return kitchenService.findById(kitchenId).getFoods().stream()
-				.map(food -> FoodConverter.toFoodDetailDTO(food, getConvertedIngredientsInFood(food)))
-				.collect(Collectors.toList());
-	}
+    public List<FoodDetailDTO> getFoodsByKitchenId(long kitchenId) {
+        return kitchenService.findById(kitchenId).getFoods().stream()
+                .map(food -> FoodConverter.toFoodDetailDTO(food, getConvertedIngredientsInFood(food)))
+                .collect(Collectors.toList());
+    }
 
-	public FoodDetailDTO getFoodDetails(long foodId) {
-		Food food = foodRepository.findById(foodId);
-		return FoodConverter.toFoodDetailDTO(food, getConvertedIngredientsInFood(food));
-	}
+    public FoodDetailDTO getFoodDetails(long foodId) {
+        Food food = foodRepository.findById(foodId);
+        return FoodConverter.toFoodDetailDTO(food, getConvertedIngredientsInFood(food));
+    }
 
-	public List<FoodDetailDTO> getMakeableFoodsInKitchen(long kitchenId) {
-		List<FoodDetailDTO> foods = getFoodsByKitchenId(kitchenId);
-		List<FoodDetailDTO> makeableFoods = new ArrayList<>();
-		Set<IngredientDTO> ingredientsInKitchen = getConvertedIngredientsInKitchen(kitchenService.findById(kitchenId));
+    public List<FoodDetailDTO> getMakeableFoodsInKitchen(long kitchenId) {
+        List<FoodDetailDTO> foods = getFoodsByKitchenId(kitchenId);
+        List<FoodDetailDTO> makeableFoods = new ArrayList<>();
+        Set<IngredientDTO> ingredientsInKitchen = getConvertedIngredientsInKitchen(kitchenService.findById(kitchenId));
 
-		foods.forEach(foodDetailDTO -> {
-					if (filtering(ingredientsInKitchen, foodDetailDTO)) makeableFoods.add(foodDetailDTO);
-				}
-		);
-		return makeableFoods;
-	}
+        foods.forEach(foodDetailDTO -> {
+                    if (filtering(ingredientsInKitchen, foodDetailDTO)) makeableFoods.add(foodDetailDTO);
+                }
+        );
+        return makeableFoods;
+    }
 
-	public List<NewIngredientDTO> getMissingIngredientsForFood(long foodId) {
-		Food food = foodRepository.findById(foodId);
-		Kitchen kitchen = food.getKitchen();
-		List<NewIngredientDTO> missingIngredients = new ArrayList<>();
-		Set<IngredientDTO> ingredientsInKitchen = getConvertedIngredientsInKitchen(kitchen);
-		getConvertedIngredientsInFood(food).forEach(ingredientInFood -> {
-			ingredientsInKitchen.forEach(ingredientInKitchen -> {
-				if (ingredientInFood.getName().equals(ingredientInKitchen.getName())) {
-					if (ingredientInFood.getWeightOrCount() > ingredientInKitchen.getWeightOrCount())
-						missingIngredients.add(NewIngredientDTO.builder()
-								.name(ingredientInFood.getName())
-								.weightOrCount(ingredientInFood.getWeightOrCount() - ingredientInKitchen.getWeightOrCount())
-								.build());
-				}
-			});
-			if (isTheIngredientNotInTheKitchen(ingredientsInKitchen, ingredientInFood))
-				missingIngredients.add(NewIngredientDTO.builder()
-						.name(ingredientInFood.getName())
-						.weightOrCount(ingredientInFood.getWeightOrCount())
-						.build());
-		});
-		return missingIngredients;
-	}
+    public List<NewIngredientDTO> getMissingIngredientsForFood(long foodId) {
+        Food food = foodRepository.findById(foodId);
+        Kitchen kitchen = food.getKitchen();
+        List<NewIngredientDTO> missingIngredients = new ArrayList<>();
+        Set<IngredientDTO> ingredientsInKitchen = getConvertedIngredientsInKitchen(kitchen);
+        getConvertedIngredientsInFood(food).forEach(ingredientInFood -> {
+            ingredientsInKitchen.forEach(ingredientInKitchen -> {
+                if (ingredientInFood.getName().equals(ingredientInKitchen.getName())) {
+                    if (ingredientInFood.getWeightOrCount() > ingredientInKitchen.getWeightOrCount())
+                        missingIngredients.add(NewIngredientDTO.builder()
+                                .name(ingredientInFood.getName())
+                                .weightOrCount(ingredientInFood.getWeightOrCount() - ingredientInKitchen.getWeightOrCount())
+                                .build());
+                }
+            });
+            if (isTheIngredientNotInTheKitchen(ingredientsInKitchen, ingredientInFood))
+                missingIngredients.add(NewIngredientDTO.builder()
+                        .name(ingredientInFood.getName())
+                        .weightOrCount(ingredientInFood.getWeightOrCount())
+                        .type(ingredientInFood.getType())
+                        .build());
+        });
+        return missingIngredients;
+    }
 
-	private List<IngredientDTO> getConvertedIngredientsInFood(Food food) {
-		return food.getIngredients().stream()
-				.map(neededIngredient -> IngredientConverter.toIngredientDTO(neededIngredient.getWeightOrCount(), neededIngredient.getIngredient().getName(), neededIngredient.getId()))
-				.collect(Collectors.toList());
-	}
+    private List<IngredientDTO> getConvertedIngredientsInFood(Food food) {
+        return food.getIngredients().stream()
+                .map(neededIngredient -> IngredientConverter.toIngredientDTO(neededIngredient.getWeightOrCount(),
+                        neededIngredient.getIngredient().getName(),
+                        neededIngredient.getIngredient().getType(),
+                        neededIngredient.getId()))
+                .collect(Collectors.toList());
+    }
 
-	private Set<IngredientDTO> getConvertedIngredientsInKitchen(Kitchen kitchen) {
-		return kitchen.getIngredients().stream()
-				.map(ingredientInKitchen -> IngredientConverter.toIngredientDTO(ingredientInKitchen.getWeightOrCount(), ingredientInKitchen.getIngredient().getName(), ingredientInKitchen.getId()))
-				.collect(Collectors.toSet());
-	}
+    private Set<IngredientDTO> getConvertedIngredientsInKitchen(Kitchen kitchen) {
+        return kitchen.getIngredients().stream()
+                .map(ingredientInKitchen -> IngredientConverter.toIngredientDTO(ingredientInKitchen.getWeightOrCount(),
+                        ingredientInKitchen.getIngredient().getName(),
+                        ingredientInKitchen.getIngredient().getType(),
+                        ingredientInKitchen.getId()))
+                .collect(Collectors.toSet());
+    }
 
-	private boolean filtering(Set<IngredientDTO> ingredientsInKitchen, FoodDetailDTO foodDetailDTO) {
-		final int[] numberOfIngredientsFound = {0};
-		foodDetailDTO.getIngredients().forEach(ingredientDTO -> {
-			ingredientsInKitchen.forEach(ingredient -> {
-				if (ingredient.getName().equals(ingredientDTO.getName()) && ingredient.getWeightOrCount() >= ingredientDTO.getWeightOrCount())
-					numberOfIngredientsFound[0]++;
-			});
-		});
-		return numberOfIngredientsFound[0] == foodDetailDTO.getIngredients().size();
-	}
+    private boolean filtering(Set<IngredientDTO> ingredientsInKitchen, FoodDetailDTO foodDetailDTO) {
+        final int[] numberOfIngredientsFound = {0};
+        foodDetailDTO.getIngredients().forEach(ingredientDTO -> {
+            ingredientsInKitchen.forEach(ingredient -> {
+                if (ingredient.getName().equals(ingredientDTO.getName()) && ingredient.getWeightOrCount() >= ingredientDTO.getWeightOrCount())
+                    numberOfIngredientsFound[0]++;
+            });
+        });
+        return numberOfIngredientsFound[0] == foodDetailDTO.getIngredients().size();
+    }
 
-	private boolean isTheIngredientNotInTheKitchen(Set<IngredientDTO> ingredientsInKitchen, IngredientDTO ingredientInFood) {
-		final Boolean[] isInTheKitchen = {false};
-		ingredientsInKitchen.forEach(ingredientInKitchen -> {
-			if (ingredientInKitchen.getName().equals(ingredientInFood.getName())) isInTheKitchen[0] = true;
-		});
-		return !isInTheKitchen[0];
-	}
+    private boolean isTheIngredientNotInTheKitchen(Set<IngredientDTO> ingredientsInKitchen, IngredientDTO ingredientInFood) {
+        final Boolean[] isInTheKitchen = {false};
+        ingredientsInKitchen.forEach(ingredientInKitchen -> {
+            if (ingredientInKitchen.getName().equals(ingredientInFood.getName())) isInTheKitchen[0] = true;
+        });
+        return !isInTheKitchen[0];
+    }
 }

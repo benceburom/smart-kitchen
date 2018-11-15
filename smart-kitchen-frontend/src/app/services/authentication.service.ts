@@ -15,7 +15,7 @@ import { Toast } from '../toast/toast';
 })
 export class AuthenticationService {
 
-    private authUrl = 'http://192.168.0.24:8080/api/auth';
+    private authUrl = 'http://localhost:8080/api/auth';
 
     constructor(private http: HttpClient, private storage: Storage, private toast: Toast) {
     }
@@ -57,6 +57,6 @@ export class AuthenticationService {
     }
 
     getCurrentUser(): Observable<UserSummary> {
-        return this.http.get<UserSummary>('http://192.168.0.24:8080/api/user/me');
+        return this.http.get<UserSummary>('http://localhost:8080/api/user/me');
     }
 }

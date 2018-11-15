@@ -4,6 +4,8 @@ import { IngredientService } from '../../services/ingredient.service';
 import { NavParams, PopoverController } from '@ionic/angular';
 import { KitchenDetailPage } from '../kitchen-detail/kitchen-detail.page';
 import { Toast } from '../../toast/toast';
+import { IngredientTypeEnum } from '../../model/IngredientTypeEnum';
+import { NewIngredientDTO } from '../../model/NewIngredientDTO';
 
 @Component({
   selector: 'app-add-ingredient-popover',
@@ -12,7 +14,8 @@ import { Toast } from '../../toast/toast';
 })
 export class AddIngredientPopoverPage implements OnInit {
   kitchenId: number;
-  ingredientToAdd: IngredientDTO;
+  ingredientToAdd: NewIngredientDTO;
+  types: String[];
 
   constructor(private ingredientService: IngredientService,
     private navParams: NavParams,
@@ -21,16 +24,19 @@ export class AddIngredientPopoverPage implements OnInit {
   }
 
   ngOnInit() {
-    this.ingredientToAdd = new IngredientDTO();
+    this.ingredientToAdd = new NewIngredientDTO();
     this.kitchenId = this.navParams.get('custom_id');
+    this.types = Object.keys(IngredientTypeEnum).map(key => { return IngredientTypeEnum[key]});
   }
 
   createIngredientInKitchen() {
+    if (this.ingredientToAdd.type === null){this.ingredientToAdd.type = ''};
     this.ingredientService.createInKitchen(this.ingredientToAdd, this.kitchenId).subscribe(() => {
     }, () => {
     }, () => {
       this.ingredientToAdd.name = null;
       this.ingredientToAdd.weightOrCount = null;
+      this.ingredientToAdd.type = null;
       this.toast.presentToastWithOptions({
         message: 'Ingredient added',
         duration: 2000,

@@ -15,6 +15,8 @@ public class Ingredient {
 	private long id;
 
 	private String name;
+
+	private String type;
     
 	@OneToMany(mappedBy = "ingredient")
     private Set<WishedIngredient> wishLists;

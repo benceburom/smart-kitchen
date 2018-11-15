@@ -14,22 +14,25 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class WishListService {
-	private final WishListRepository wishListRepository;
+    private final WishListRepository wishListRepository;
 
-	public WishList createWishListInKitchen(Kitchen kitchen) {
-		WishList wishList = new WishList();
-		wishList.setKitchen(kitchen);
-		return wishListRepository.save(wishList);
-	}
+    public WishList createWishListInKitchen(Kitchen kitchen) {
+        WishList wishList = new WishList();
+        wishList.setKitchen(kitchen);
+        return wishListRepository.save(wishList);
+    }
 
-	public WishList findById(long wishListId) {
-		return wishListRepository.findById(wishListId);
-	}
+    public WishList findById(long wishListId) {
+        return wishListRepository.findById(wishListId);
+    }
 
-	public List<IngredientDTO> findAllIngredientsByWishListId(long id) {
-		return wishListRepository.findById(id).getIngredients()
-				.stream()
-				.map(wishedIngredient -> IngredientConverter.toIngredientDTO(wishedIngredient.getWeightOrCount(), wishedIngredient.getIngredient().getName(), wishedIngredient.getId()))
-				.collect(Collectors.toList());
-	}
+    public List<IngredientDTO> findAllIngredientsByWishListId(long id) {
+        return wishListRepository.findById(id).getIngredients()
+                .stream()
+                .map(wishedIngredient -> IngredientConverter.toIngredientDTO(wishedIngredient.getWeightOrCount(),
+                        wishedIngredient.getIngredient().getName(),
+                        wishedIngredient.getIngredient().getType(),
+                        wishedIngredient.getId()))
+                .collect(Collectors.toList());
+    }
 }

@@ -8,7 +8,7 @@ import { NewIngredientDTO } from '../model/NewIngredientDTO';
     providedIn: 'root'
 })
 export class IngredientService {
-    private ingredientEndpointUrl = 'http://192.168.0.24:8080/api/ingredient';
+    private ingredientEndpointUrl = 'http://localhost:8080/api/ingredient';
 
     constructor(private http: HttpClient) {
     }
@@ -21,8 +21,12 @@ export class IngredientService {
         return this.http.post <IngredientDTO>(this.ingredientEndpointUrl + '/createInWishList/' + wishListId.toString(), newIngredientDTO);
     }
 
-    createMultipleInWishList(ingredientsToAdd: NewIngredientDTO[], wishListId): Observable<void> {
-        return this.http.post <void>(this.ingredientEndpointUrl + '/createMultipleInWishList/' + wishListId.toString(), ingredientsToAdd);
+    createMultipleInWishListFromFood(ingredientsToAdd: NewIngredientDTO[], foodId): Observable<void> {
+        return this.http.post <void>(this.ingredientEndpointUrl + '/createMultipleInWishListFromFood/' + foodId.toString(), ingredientsToAdd);
+    }
+
+    createMultipleInKitchenFromWishList(ingredientsToAdd: NewIngredientDTO[], wishListID): Observable<void> {
+        return this.http.post <void>(this.ingredientEndpointUrl + '/createMultipleInKitchenFromWishList/' + wishListID.toString(), ingredientsToAdd);
     }
 
     removeIngredient(wishedIngredientId: number): Observable<void> {
