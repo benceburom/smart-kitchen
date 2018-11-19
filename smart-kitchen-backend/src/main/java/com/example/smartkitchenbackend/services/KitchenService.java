@@ -21,7 +21,7 @@ public class KitchenService {
     private final UserRepository userRepository;
     private final WishListService wishListService;
 
-    public NewKitchenDTO create(NewKitchenDTO kitchenDTO) {
+    public void create(NewKitchenDTO kitchenDTO) {
         Kitchen kitchen = new Kitchen();
 		if(kitchenDTO.getName() == null) throw new BadRequestException("Please fill out the name field");
         int uniqueNumberForName = kitchenRepository.numberOfKitchensWithSimilarNames(kitchenDTO.getName()) + 1001;
@@ -29,7 +29,7 @@ public class KitchenService {
         kitchen.addUser(userRepository.getOne(kitchenDTO.getUserId()));
         kitchenRepository.save(kitchen);
         kitchen.setWishList(wishListService.createWishListInKitchen(kitchen));
-        return KitchenConverter.toNewKitchenDTO(kitchenRepository.save(kitchen));
+        kitchenRepository.save(kitchen);
     }
 
     KitchenDTO addUserToKitchen(long kitchenId, long userId) {

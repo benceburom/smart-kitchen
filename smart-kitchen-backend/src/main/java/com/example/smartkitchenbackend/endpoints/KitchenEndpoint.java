@@ -16,8 +16,8 @@ public class KitchenEndpoint {
 	private final KitchenService kitchenService;
 
 	@PostMapping("/create")
-	public NewKitchenDTO createKitchen(@RequestBody NewKitchenDTO kitchenDTO) {
-		return kitchenService.create(kitchenDTO);
+	public void createKitchen(@RequestBody NewKitchenDTO kitchenDTO) {
+		kitchenService.create(kitchenDTO);
 	}
 
 	@GetMapping("/list")

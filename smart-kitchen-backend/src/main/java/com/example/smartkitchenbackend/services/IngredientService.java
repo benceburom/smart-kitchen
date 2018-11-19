@@ -82,12 +82,22 @@ public class IngredientService {
         newIngredientDTOs.forEach(newIngredientDTO -> createInKitchen(newIngredientDTO, kitchenId));
     }
 
+    public void removeFromWishList(long wishedIngredientId) {
+        wishedIngredientRepository.deleteById(wishedIngredientId);
+    }
+
+    @Transactional
+    public void emptyWishList(long wishListId) {
+        wishListRepository.findReference(wishListId).getIngredients().forEach(wishedIngredient -> removeFromWishList(wishedIngredient.getId()));
+    }
+
     private IngredientDTO createIngredientInKitchen(double weightOrCount, long kitchenId, Ingredient ingredient) {
         if (ingredientInKitchenRepository.existsByIngredientIdAndKitchenId(ingredient.getId(), kitchenId)) {
             IngredientInKitchen ingredientInKitchen = ingredientInKitchenRepository.findByIngredientIdAndKitchenId(ingredient.getId(), kitchenId);
-            ingredientInKitchen.setWeightOrCount(ingredientInKitchen.getWeightOrCount() + weightOrCount);
+            double weight = weightOrCount + ingredientInKitchen.getWeightOrCount();
+            ingredientInKitchen.setWeightOrCount(weight);
             ingredientInKitchenRepository.save(ingredientInKitchen);
-            return IngredientConverter.toIngredientDTO(weightOrCount, ingredient.getName(), ingredient.getType(), ingredientInKitchen.getId());
+            return IngredientConverter.toIngredientDTO(weight, ingredient.getName(), ingredient.getType(), ingredientInKitchen.getId());
         } else {
             IngredientInKitchen ingredientInKitchen = new IngredientInKitchen();
             ingredientInKitchen.setIngredient(ingredient);
@@ -117,9 +127,10 @@ public class IngredientService {
     private NeededIngredient createIngredientInFood(double weightOrCount, long foodId, Ingredient ingredient) {
         if (neededIngredientRepository.existsByIngredientIdAndFoodId(ingredient.getId(), foodId)) {
             NeededIngredient neededIngredient = neededIngredientRepository.findByIngredientIdAndFoodId(ingredient.getId(), foodId);
-            neededIngredient.setWeightOrCount(neededIngredient.getWeightOrCount() + weightOrCount);
+            double weight = neededIngredient.getWeightOrCount() + weightOrCount;
+            neededIngredient.setWeightOrCount(weight);
             neededIngredientRepository.save(neededIngredient);
-            return IngredientConverter.toNeededIngredientEntity(weightOrCount, foodRepository.findReference(foodId), ingredient);
+            return IngredientConverter.toNeededIngredientEntity(weight, foodRepository.findReference(foodId), ingredient);
         } else {
             NeededIngredient neededIngredient = new NeededIngredient();
             neededIngredient.setIngredient(ingredient);
@@ -133,14 +144,5 @@ public class IngredientService {
     private void checkInput(NewIngredientDTO newIngredientDTO) {
         if (newIngredientDTO.getName() == null || newIngredientDTO.getWeightOrCount() == 0.0)
             throw new BadRequestException("Invalid input, name and weight must be filled");
-    }
-
-    public void removeFromWishList(long wishedIngredientId) {
-        wishedIngredientRepository.deleteById(wishedIngredientId);
-    }
-
-    @Transactional
-    public void emptyWishList(long wishListId) {
-        wishListRepository.findReference(wishListId).getIngredients().forEach(wishedIngredient -> removeFromWishList(wishedIngredient.getId()));
     }
 }

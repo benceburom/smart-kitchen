@@ -18,10 +18,10 @@ public class KitchenConverter {
 		return kitchen;
 	}
 
-	public static NewKitchenDTO toNewKitchenDTO(Kitchen kitchen) {
+	public static NewKitchenDTO toNewKitchenDTO(Kitchen kitchen, long userId) {
 		return NewKitchenDTO.builder()
 				.name(kitchen.getName())
-				.userId(kitchen.getUsers().stream().findFirst().get().getId())
+				.userId(userId)
 				.build();
 	}
 

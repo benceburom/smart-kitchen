@@ -72,12 +72,12 @@ public class FoodServiceTest {
     public void allFoodInKitchenIsFound_WhenKitchenIdIsGiven() {
         when(mockKitchenService.findById(KITCHEN_ID)).thenReturn(dummyKitchen());
 
-        List<FoodDetailDTO> foods = foodService.getFoodsByKitchenId(KITCHEN_ID);
+        List<FoodDetailDTO> result = foodService.getFoodsByKitchenId(KITCHEN_ID);
 
-        Assert.assertEquals(1, foods.size());
-        Assert.assertEquals(FOOD_NAME, foods.get(0).getName());
-        Assert.assertEquals(INGREDIENT_NAME, foods.get(0).getIngredients().get(0).getName());
-        Assert.assertEquals(INGREDIENT_TYPE, foods.get(0).getIngredients().get(0).getType());
+        Assert.assertEquals(1, result.size());
+        Assert.assertEquals(FOOD_NAME, result.get(0).getName());
+        Assert.assertEquals(INGREDIENT_NAME, result.get(0).getIngredients().get(0).getName());
+        Assert.assertEquals(INGREDIENT_TYPE, result.get(0).getIngredients().get(0).getType());
     }
 
     @Test
@@ -86,8 +86,8 @@ public class FoodServiceTest {
 
         FoodDetailDTO result = foodService.getFoodDetails(FOOD_ID);
 
-        Assert.assertEquals(result.getName(), FOOD_NAME);
-        Assert.assertEquals(result.getIngredients().get(0).getWeightOrCount(), NEW_INGREDIENT_DTO.getWeightOrCount(), 0);
+        Assert.assertEquals(FOOD_NAME, result.getName());
+        Assert.assertEquals(NEW_INGREDIENT_DTO.getWeightOrCount(), result.getIngredients().get(0).getWeightOrCount(),0);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class FoodServiceTest {
 
         List<FoodDetailDTO> result = foodService.getMakeableFoodsInKitchen(KITCHEN_ID);
 
-        Assert.assertEquals(result.get(0).getName(), FOOD_NAME);
+        Assert.assertEquals(FOOD_NAME, result.get(0).getName());
     }
 
     @Test
