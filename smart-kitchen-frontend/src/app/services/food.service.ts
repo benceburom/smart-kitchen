@@ -15,8 +15,8 @@ export class FoodService {
   constructor(private http: HttpClient) {
   }
 
-  createFood(foodDTO: FoodDTO): Observable<FoodDTO> {
-      return this.http.post <FoodDTO>(this.foodEndpontUrl + '/createFood', foodDTO);
+  createFood(foodDTO: FoodDTO): Observable<void> {
+      return this.http.post <void>(this.foodEndpontUrl + '/createFood', foodDTO);
   }
 
   getFoodsByKitchenId(kitchenId: number): Observable<FoodDetailDTO[]> {

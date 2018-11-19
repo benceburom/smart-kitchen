@@ -29,17 +29,17 @@ public class IngredientService {
     private final WishedIngredientRepository wishedIngredientRepository;
 
 
-    public NeededIngredient createInFood(NewIngredientDTO newIngredientDTO, Food food) {
+    public NeededIngredient createInFood(NewIngredientDTO newIngredientDTO, long foodId) {
         checkInput(newIngredientDTO);
         if (ingredientRepository.existsByName(newIngredientDTO.getName())) {
             Ingredient ingredient = ingredientRepository.findByName(newIngredientDTO.getName());
-            return createIngredientInFood(newIngredientDTO.getWeightOrCount(), food.getId(), ingredient);
+            return createIngredientInFood(newIngredientDTO.getWeightOrCount(), foodId, ingredient);
         } else {
             Ingredient ingredient = new Ingredient();
             ingredient.setName(newIngredientDTO.getName());
             ingredient.setType(newIngredientDTO.getType());
             ingredientRepository.save(ingredient);
-            return createIngredientInFood(newIngredientDTO.getWeightOrCount(), food.getId(), ingredient);
+            return createIngredientInFood(newIngredientDTO.getWeightOrCount(), foodId, ingredient);
         }
 
     }

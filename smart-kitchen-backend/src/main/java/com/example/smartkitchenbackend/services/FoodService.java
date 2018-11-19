@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,16 +24,16 @@ public class FoodService {
     private final IngredientService ingredientService;
 
 
-    public FoodDTO create(FoodDTO foodDTO) {
+    public void create(FoodDTO foodDTO) {
         Food food = new Food();
         food.setKitchen(kitchenService.findById(foodDTO.getKitchenId()));
         food.setName(foodDTO.getName());
         foodRepository.save(food);
         food.setIngredients(foodDTO.getIngredients()
                 .stream()
-                .map(newIngredientDTO -> ingredientService.createInFood(newIngredientDTO, food))
+                .map(newIngredientDTO -> ingredientService.createInFood(newIngredientDTO, food.getId()))
                 .collect(Collectors.toList()));
-        return FoodConverter.toFoodDTO(foodRepository.save(food), foodDTO.getIngredients());
+        foodRepository.save(food);
     }
 
     public List<FoodDetailDTO> getFoodsByKitchenId(long kitchenId) {
@@ -51,7 +50,7 @@ public class FoodService {
     public List<FoodDetailDTO> getMakeableFoodsInKitchen(long kitchenId) {
         List<FoodDetailDTO> foods = getFoodsByKitchenId(kitchenId);
         List<FoodDetailDTO> makeableFoods = new ArrayList<>();
-        Set<IngredientDTO> ingredientsInKitchen = getConvertedIngredientsInKitchen(kitchenService.findById(kitchenId));
+        List<IngredientDTO> ingredientsInKitchen = getConvertedIngredientsInKitchen(kitchenService.findById(kitchenId));
 
         foods.forEach(foodDetailDTO -> {
                     if (filtering(ingredientsInKitchen, foodDetailDTO)) makeableFoods.add(foodDetailDTO);
@@ -64,7 +63,7 @@ public class FoodService {
         Food food = foodRepository.findById(foodId);
         Kitchen kitchen = food.getKitchen();
         List<NewIngredientDTO> missingIngredients = new ArrayList<>();
-        Set<IngredientDTO> ingredientsInKitchen = getConvertedIngredientsInKitchen(kitchen);
+        List<IngredientDTO> ingredientsInKitchen = getConvertedIngredientsInKitchen(kitchen);
         getConvertedIngredientsInFood(food).forEach(ingredientInFood -> {
             ingredientsInKitchen.forEach(ingredientInKitchen -> {
                 if (ingredientInFood.getName().equals(ingredientInKitchen.getName())) {
@@ -94,16 +93,16 @@ public class FoodService {
                 .collect(Collectors.toList());
     }
 
-    private Set<IngredientDTO> getConvertedIngredientsInKitchen(Kitchen kitchen) {
+    private List<IngredientDTO> getConvertedIngredientsInKitchen(Kitchen kitchen) {
         return kitchen.getIngredients().stream()
                 .map(ingredientInKitchen -> IngredientConverter.toIngredientDTO(ingredientInKitchen.getWeightOrCount(),
                         ingredientInKitchen.getIngredient().getName(),
                         ingredientInKitchen.getIngredient().getType(),
                         ingredientInKitchen.getId()))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
-    private boolean filtering(Set<IngredientDTO> ingredientsInKitchen, FoodDetailDTO foodDetailDTO) {
+    private boolean filtering(List<IngredientDTO> ingredientsInKitchen, FoodDetailDTO foodDetailDTO) {
         final int[] numberOfIngredientsFound = {0};
         foodDetailDTO.getIngredients().forEach(ingredientDTO -> {
             ingredientsInKitchen.forEach(ingredient -> {
@@ -114,7 +113,7 @@ public class FoodService {
         return numberOfIngredientsFound[0] == foodDetailDTO.getIngredients().size();
     }
 
-    private boolean isTheIngredientNotInTheKitchen(Set<IngredientDTO> ingredientsInKitchen, IngredientDTO ingredientInFood) {
+    private boolean isTheIngredientNotInTheKitchen(List<IngredientDTO> ingredientsInKitchen, IngredientDTO ingredientInFood) {
         final Boolean[] isInTheKitchen = {false};
         ingredientsInKitchen.forEach(ingredientInKitchen -> {
             if (ingredientInKitchen.getName().equals(ingredientInFood.getName())) isInTheKitchen[0] = true;

@@ -1,24 +1,24 @@
 package com.example.smartkitchenbackend.entities;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
 @Entity
+@Data
 public class IngredientInKitchen {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	private double weightOrCount;
+    private double weightOrCount;
 
-	@ManyToOne
-	private Ingredient ingredient;
+    @ManyToOne
+    private Ingredient ingredient;
 
-	@ManyToOne
-	private Kitchen kitchen;
+    @ManyToOne
+    private Kitchen kitchen;
 }

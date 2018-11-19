@@ -16,8 +16,8 @@ public class FoodEndpoint {
 	private final FoodService foodService;
 
 	@PostMapping("/createFood")
-	public FoodDTO createFood(@RequestBody FoodDTO foodDTO) {
-		return foodService.create(foodDTO);
+	public void createFood(@RequestBody FoodDTO foodDTO) {
+		foodService.create(foodDTO);
 	}
 
 	@GetMapping("/listFoods/{kitchenId}")

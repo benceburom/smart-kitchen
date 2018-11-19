@@ -1,22 +1,21 @@
 package com.example.smartkitchenbackend.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class WishList {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	@OneToMany(mappedBy = "wishList")
-	private Set<WishedIngredient> ingredients;
+    @OneToMany(mappedBy = "wishList")
+    private List<WishedIngredient> ingredients = new ArrayList<>();
 
-	@OneToOne
-	private Kitchen kitchen;
+    @OneToOne
+    private Kitchen kitchen;
 }

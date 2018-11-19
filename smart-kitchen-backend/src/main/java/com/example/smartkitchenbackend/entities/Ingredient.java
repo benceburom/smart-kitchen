@@ -1,13 +1,13 @@
 package com.example.smartkitchenbackend.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class Ingredient {
 	@Id
@@ -19,11 +19,11 @@ public class Ingredient {
 	private String type;
     
 	@OneToMany(mappedBy = "ingredient")
-    private Set<WishedIngredient> wishLists;
+    private List<WishedIngredient> wishLists = new ArrayList<>();
     
     @OneToMany(mappedBy = "ingredient")
-    private Set<IngredientInKitchen> kitchens;
+    private List<IngredientInKitchen> kitchens = new ArrayList<>();
     
     @OneToMany(mappedBy = "ingredient")
-    private Set<NeededIngredient> foods;
+    private List<NeededIngredient> foods = new ArrayList<>();
 }
