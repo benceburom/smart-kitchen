@@ -22,7 +22,7 @@ export class KitchenService {
             .toPromise().then(data => data.userIds);
     }
 
-    createKitchen(newKitchenDTO: NewKitchenDTO): Observable<NewKitchenDTO> {
-        return this.http.post <NewKitchenDTO>(this.kitchenEndpointUrl + '/create/', newKitchenDTO);
+    createKitchen(newKitchenDTO: NewKitchenDTO): Observable<void> {
+        return this.http.post <void>(this.kitchenEndpointUrl + '/create/', newKitchenDTO);
     }
 }

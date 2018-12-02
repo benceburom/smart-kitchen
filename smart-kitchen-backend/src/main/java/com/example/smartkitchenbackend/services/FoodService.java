@@ -6,6 +6,7 @@ import com.example.smartkitchenbackend.DTOs.ingredient.IngredientDTO;
 import com.example.smartkitchenbackend.DTOs.ingredient.NewIngredientDTO;
 import com.example.smartkitchenbackend.entities.Food;
 import com.example.smartkitchenbackend.entities.Kitchen;
+import com.example.smartkitchenbackend.expection.BadRequestException;
 import com.example.smartkitchenbackend.repositories.food.FoodRepository;
 import com.example.smartkitchenbackend.services.Converters.FoodConverter;
 import com.example.smartkitchenbackend.services.Converters.IngredientConverter;
@@ -25,6 +26,7 @@ public class FoodService {
 
 
     public void create(FoodDTO foodDTO) {
+        if(foodDTO.getName() == null) throw new BadRequestException("Food name can not be empty");
         Food food = new Food();
         food.setKitchen(kitchenService.findById(foodDTO.getKitchenId()));
         food.setName(foodDTO.getName());

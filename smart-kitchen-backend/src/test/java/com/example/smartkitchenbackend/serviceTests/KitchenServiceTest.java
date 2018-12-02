@@ -1,13 +1,16 @@
 package com.example.smartkitchenbackend.serviceTests;
 
+import com.example.smartkitchenbackend.DTOs.Kitchen.KitchenDTO;
 import com.example.smartkitchenbackend.DTOs.Kitchen.NewKitchenDTO;
 import com.example.smartkitchenbackend.entities.Kitchen;
 import com.example.smartkitchenbackend.entities.User;
 import com.example.smartkitchenbackend.entities.WishList;
+import com.example.smartkitchenbackend.expection.BadRequestException;
 import com.example.smartkitchenbackend.repositories.kitchen.KitchenRepository;
 import com.example.smartkitchenbackend.repositories.user.UserRepository;
 import com.example.smartkitchenbackend.services.KitchenService;
 import com.example.smartkitchenbackend.services.WishListService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,10 +18,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
+import java.util.List;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class KitchenServiceTest {
@@ -66,6 +68,22 @@ public class KitchenServiceTest {
         kitchenService.findById(KITCHEN_ID);
 
         verify(mockKitchenRepository).findById(KITCHEN_ID);
+    }
+
+    @Test(expected = BadRequestException.class)
+    public void throwsException_whenNameIsNull() {
+        kitchenService.create(new NewKitchenDTO());
+    }
+
+    @Test
+    public void returnsTheCorrectKitchenDTOList_WhenFindAllCalled() {
+        List<Kitchen> kitchens = Collections.singletonList(createKitchen());
+        when(mockKitchenRepository.findAll()).thenReturn(kitchens);
+
+        List<KitchenDTO> result = kitchenService.getKitchens();
+
+        Assert.assertEquals(kitchens.get(0).getId(), result.get(0).getId());
+        Assert.assertEquals(kitchens.get(0).getName(), result.get(0).getName());
     }
 
     private Kitchen createKitchen() {

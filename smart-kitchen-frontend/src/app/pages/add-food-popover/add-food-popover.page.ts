@@ -27,7 +27,7 @@ export class AddFoodPopoverPage implements OnInit {
     this.foodToAdd = new FoodDTO();
     this.kitchenId = this.navParams.get('custom_id');
     this.ingredientInFood = new NewIngredientDTO();
-    this.types = Object.keys(IngredientTypeEnum).map(key => { return IngredientTypeEnum[key]});
+    this.types = Object.keys(IngredientTypeEnum).map(key => { return IngredientTypeEnum[key] });
   }
 
   createFoodInKitchen() {
@@ -54,18 +54,32 @@ export class AddFoodPopoverPage implements OnInit {
     ingredientToPush.name = this.ingredientInFood.name;
     ingredientToPush.weightOrCount = this.ingredientInFood.weightOrCount;
     ingredientToPush.type = this.ingredientInFood.type;
-    await this.ingredients.push(ingredientToPush);
-    this.toast.presentToastWithOptions({
-      message: 'Ingredient added to recipe',
-      duration: 2000,
-      showCloseButton: true,
-      position: 'bottom',
-      color: 'success',
-      closeButtonText: 'Close'
-    });
-    this.ingredientInFood.name = null;
-    this.ingredientInFood.weightOrCount = null;
-    this.ingredientInFood.type = null;
+    console.log(ingredientToPush.name);
+    console.log(ingredientToPush.weightOrCount);
+    if (ingredientToPush.name === undefined || ingredientToPush.weightOrCount === undefined) {
+      this.toast.presentToastWithOptions({
+        message: 'Ingredient name and amount can not be empty',
+        duration: 2000,
+        showCloseButton: true,
+        position: 'bottom',
+        color: 'success',
+        closeButtonText: 'Close'
+      });
+    }
+    else {
+      await this.ingredients.push(ingredientToPush);
+      this.toast.presentToastWithOptions({
+        message: 'Ingredient added to recipe',
+        duration: 2000,
+        showCloseButton: true,
+        position: 'bottom',
+        color: 'success',
+        closeButtonText: 'Close'
+      });
+      this.ingredientInFood.name = null;
+      this.ingredientInFood.weightOrCount = null;
+      this.ingredientInFood.type = null;
+    }
   }
 
   closeModal() {
