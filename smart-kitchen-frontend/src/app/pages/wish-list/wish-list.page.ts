@@ -89,4 +89,20 @@ export class WishListPage implements OnInit {
             this.getIngredients();
         });
     }
+
+    removeIngredient(id: number) {
+        this.ingredientService.removeIngredientFromWishList(id).subscribe(() => {
+            this.toast.presentToastWithOptions({
+                message: 'Ingredient removed',
+                duration: 2000,
+                showCloseButton: true,
+                position: 'bottom',
+                color: 'success',
+                closeButtonText: 'Close'
+            })
+        }, () => {
+        }, () => {
+            this.getIngredients();
+        });
+    }
 }

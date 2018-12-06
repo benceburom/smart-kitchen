@@ -1,4 +1,4 @@
-package com.example.smartkitchenbackend.endpoints;
+package com.example.smartkitchenbackend.controllers;
 
 import com.example.smartkitchenbackend.DTOs.ingredient.IngredientDTO;
 import com.example.smartkitchenbackend.DTOs.ingredient.NewIngredientDTO;
@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/ingredient")
 @RequiredArgsConstructor
-public class IngredientEndpoint {
+public class IngredientController {
     private final IngredientService ingredientService;
 
     @PostMapping("/createInKitchen/{kitchenId}")
@@ -27,6 +27,11 @@ public class IngredientEndpoint {
     @DeleteMapping("/removeFromWishList/{wishedIngredientId}")
     public void removeFromWishList(@PathVariable long wishedIngredientId) {
         ingredientService.removeFromWishList(wishedIngredientId);
+    }
+
+    @DeleteMapping("/removeFromKitchen/{ingredientInKitchenId}")
+    public void removeFromKitchen(@PathVariable long ingredientInKitchenId) {
+        ingredientService.removeFromKitchen(ingredientInKitchenId);
     }
 
     @PostMapping("createMultipleInWishListFromFood/{foodId}")

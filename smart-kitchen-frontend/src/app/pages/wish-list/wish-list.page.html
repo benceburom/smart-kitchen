@@ -17,6 +17,11 @@
     <ion-list *ngFor="let ingredient of ingredients;">
         <ion-item>
             {{ingredient.name}}: {{ingredient.weightOrCount}} {{ingredient.type}}
+            <ion-buttons slot="end">
+                <ion-button (click)="removeIngredient(ingredient.id)">
+                  <ion-icon slot="icon-only" name="trash" color="primary"></ion-icon>
+                </ion-button>
+              </ion-buttons>
         </ion-item>
     </ion-list>
     <ion-label color="dark">Adding new ingredient</ion-label>

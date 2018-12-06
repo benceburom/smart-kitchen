@@ -1,4 +1,4 @@
-package com.example.smartkitchenbackend.endpoints;
+package com.example.smartkitchenbackend.controllers;
 
 import com.example.smartkitchenbackend.DTOs.Food.FoodDTO;
 import com.example.smartkitchenbackend.DTOs.Food.FoodDetailDTO;
@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/food")
 @RequiredArgsConstructor
-public class FoodEndpoint {
+public class FoodController {
 	private final FoodService foodService;
 
 	@PostMapping("/createFood")

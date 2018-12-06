@@ -53,7 +53,7 @@ public class KitchenServiceTest {
     @Test
     public void kitchenIsCreated_WhenKitchenDTOIsGiven() {
         when(mockKitchenRepository.numberOfKitchensWithSimilarNames(KITCHEN_NAME)).thenReturn(0);
-        when(mockUserRepository.getOne(USER_ID)).thenReturn(mockUser);
+        when(mockUserRepository.getReference(USER_ID)).thenReturn(mockUser);
         when(mockWishListService.createWishListInKitchen(createKitchen())).thenReturn(mockWishList);
 
         kitchenService.create(NEW_KITCHEN_DTO);

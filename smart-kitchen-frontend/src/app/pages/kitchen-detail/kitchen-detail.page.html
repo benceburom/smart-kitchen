@@ -8,7 +8,7 @@
                 <ion-icon slot="icon-only" name="person" color="primary"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title *ngIf="kitchenDetails != undefined" color="primary">Kitchen: {{kitchenDetails.name}}</ion-title>
+        <ion-title *ngIf="kitchenDetails != undefined" color="primary">{{kitchenDetails.name}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -16,19 +16,24 @@
     <ion-button expand="full" disabled="false" type="submit" color="primary" (click)="enterWishList()">Enter wish list</ion-button>
     <ion-button expand="full" (click)="openAddUserModal()">Add user to kitchen</ion-button>
     <ion-label color="dark">Ingredients in kitchen:</ion-label>
-    <ion-virtual-scroll [items]="kitchenDetails.ingredients">
-        <ion-item *virtualItem="let ingredient">
+    <ion-list *ngFor="let ingredient of kitchenDetails.ingredients;">
+        <ion-item>
             {{ingredient.name}}: {{ingredient.weightOrCount}} {{ingredient.type}}
+            <ion-buttons slot="end">
+                <ion-button (click)="removeIngredient(ingredient.id)">
+                  <ion-icon slot="icon-only" name="trash" color="primary"></ion-icon>
+                </ion-button>
+              </ion-buttons>
         </ion-item>
-    </ion-virtual-scroll>
+    </ion-list>
     <ion-button (click)="openAddIngredientPopover($event)">Add Ingredient</ion-button>
     <ion-button (click)="openAddFoodModal()">Add FoodRecipe</ion-button>
     <div>Food recipes:</div>
     <ion-list *ngFor="let food of foodRecipesInKitchen;">
-        <ion-item href="/food-detail/{{food.id}}" routerDirection="forward">name: {{food.name}}</ion-item>
+        <ion-item href="/food-detail/{{food.id}}" routerDirection="forward">{{food.name}}</ion-item>
     </ion-list>
-    <div>Foods that u can make:</div>
+    <div>Foods that you can make:</div>
     <ion-list *ngFor="let makeAbleFood of makeAbleFoods;">
-        <ion-item href="/food-detail/{{makeAbleFood.id}}" routerDirection="forward">name: {{makeAbleFood.name}}</ion-item>
+        <ion-item href="/food-detail/{{makeAbleFood.id}}" routerDirection="forward">{{makeAbleFood.name}}</ion-item>
     </ion-list>
 </ion-content>

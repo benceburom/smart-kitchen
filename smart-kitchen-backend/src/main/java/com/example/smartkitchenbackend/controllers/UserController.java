@@ -1,4 +1,4 @@
-package com.example.smartkitchenbackend.endpoints;
+package com.example.smartkitchenbackend.controllers;
 
 import com.example.smartkitchenbackend.DTOs.Kitchen.AddKitchenDTO;
 import com.example.smartkitchenbackend.DTOs.Kitchen.KitchenDTO;
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
-public class UserEndpoint {
+public class UserController {
 	private final UserService userService;
 
 	@GetMapping("/{userId}")

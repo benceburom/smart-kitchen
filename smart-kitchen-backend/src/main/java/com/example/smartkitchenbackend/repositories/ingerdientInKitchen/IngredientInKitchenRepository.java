@@ -7,9 +7,9 @@ public interface IngredientInKitchenRepository {
 
 	IngredientInKitchen save(IngredientInKitchen ingredientInKitchen);
 
-	void delete(IngredientInKitchen ingredientInKitchen);
-
 	Boolean existsByIngredientIdAndKitchenId(long ingredientId, long kitchenId);
 
 	IngredientInKitchen findByIngredientIdAndKitchenId(long ingredientId, long kitchenId);
+
+    void deleteById(long ingredientInKitchenId);
 }

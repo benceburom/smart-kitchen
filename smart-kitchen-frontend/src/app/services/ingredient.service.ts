@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {IngredientDTO} from '../model/IngredientDTO';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { IngredientDTO } from '../model/IngredientDTO';
+import { Observable } from 'rxjs';
 import { NewIngredientDTO } from '../model/NewIngredientDTO';
 
 @Injectable({
@@ -14,22 +14,26 @@ export class IngredientService {
     }
 
     createInKitchen(newIngredientDTO: NewIngredientDTO, kitchenId: number): Observable<IngredientDTO> {
-        return this.http.post <IngredientDTO>(this.ingredientEndpointUrl + '/createInKitchen/' + kitchenId.toString(), newIngredientDTO);
+        return this.http.post<IngredientDTO>(this.ingredientEndpointUrl + '/createInKitchen/' + kitchenId.toString(), newIngredientDTO);
     }
 
     createInWishList(newIngredientDTO: NewIngredientDTO, wishListId: number): Observable<IngredientDTO> {
-        return this.http.post <IngredientDTO>(this.ingredientEndpointUrl + '/createInWishList/' + wishListId.toString(), newIngredientDTO);
+        return this.http.post<IngredientDTO>(this.ingredientEndpointUrl + '/createInWishList/' + wishListId.toString(), newIngredientDTO);
     }
 
     createMultipleInWishListFromFood(ingredientsToAdd: NewIngredientDTO[], foodId): Observable<void> {
-        return this.http.post <void>(this.ingredientEndpointUrl + '/createMultipleInWishListFromFood/' + foodId.toString(), ingredientsToAdd);
+        return this.http.post<void>(this.ingredientEndpointUrl + '/createMultipleInWishListFromFood/' + foodId.toString(), ingredientsToAdd);
     }
 
     createMultipleInKitchenFromWishList(ingredientsToAdd: NewIngredientDTO[], wishListID): Observable<void> {
-        return this.http.post <void>(this.ingredientEndpointUrl + '/createMultipleInKitchenFromWishList/' + wishListID.toString(), ingredientsToAdd);
+        return this.http.post<void>(this.ingredientEndpointUrl + '/createMultipleInKitchenFromWishList/' + wishListID.toString(), ingredientsToAdd);
     }
 
-    removeIngredient(wishedIngredientId: number): Observable<void> {
-        return this.http.delete <void>(this.ingredientEndpointUrl + '/removeFromWishList/' + wishedIngredientId.toString());
+    removeIngredientFromWishList(wishedIngredientId: number): Observable<void> {
+        return this.http.delete<void>(this.ingredientEndpointUrl + '/removeFromWishList/' + wishedIngredientId.toString());
+    }
+
+    removeIngredientFromKitchen(ingredientInKitchenId: number): Promise<void> {
+        return this.http.delete<void>(this.ingredientEndpointUrl + '/removeFromKitchen/' + ingredientInKitchenId.toString()).toPromise().then(data => { return data; });
     }
 }

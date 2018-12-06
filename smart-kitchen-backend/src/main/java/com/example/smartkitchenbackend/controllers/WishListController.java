@@ -1,4 +1,4 @@
-package com.example.smartkitchenbackend.endpoints;
+package com.example.smartkitchenbackend.controllers;
 
 import com.example.smartkitchenbackend.DTOs.ingredient.IngredientDTO;
 import com.example.smartkitchenbackend.services.IngredientService;

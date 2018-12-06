@@ -22,11 +22,6 @@ public class DefaultIngredientInKitchenRepository implements IngredientInKitchen
 	}
 
 	@Override
-	public void delete(IngredientInKitchen ingredientInKitchen) {
-		ingredientInKitchenJPARepository.delete(ingredientInKitchen);
-	}
-
-	@Override
 	public Boolean existsByIngredientIdAndKitchenId(long ingredientId, long kitchenId) {
 		return ingredientInKitchenJPARepository.existsByIngredientIdAndKitchenId(ingredientId, kitchenId);
 	}
@@ -34,6 +29,11 @@ public class DefaultIngredientInKitchenRepository implements IngredientInKitchen
 	@Override
 	public IngredientInKitchen findByIngredientIdAndKitchenId(long ingredientId, long kitchenId) {
 		return ingredientInKitchenJPARepository.findByIngredientIdAndKitchenId(ingredientId, kitchenId);
+	}
+
+	@Override
+	public void deleteById(long ingredientInKitchenId) {
+		ingredientInKitchenJPARepository.deleteById(ingredientInKitchenId);
 	}
 
 }

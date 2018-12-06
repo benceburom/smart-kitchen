@@ -13,6 +13,6 @@ public class RoleService {
 	private final RoleRepository roleRepository;
 
 	public Role findByName(RoleName roleName) {
-		return roleRepository.findByName(roleName).orElseThrow(() -> new AppException("User Role not set."));
+		return roleRepository.findByName(roleName);
 	}
 }

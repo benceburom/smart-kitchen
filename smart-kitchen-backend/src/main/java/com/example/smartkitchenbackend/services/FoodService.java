@@ -73,6 +73,7 @@ public class FoodService {
                         missingIngredients.add(NewIngredientDTO.builder()
                                 .name(ingredientInFood.getName())
                                 .weightOrCount(ingredientInFood.getWeightOrCount() - ingredientInKitchen.getWeightOrCount())
+                                .type(ingredientInFood.getType())
                                 .build());
                 }
             });

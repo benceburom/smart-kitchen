@@ -86,6 +86,10 @@ public class IngredientService {
         wishedIngredientRepository.deleteById(wishedIngredientId);
     }
 
+    public void removeFromKitchen(long ingredientInKitchenId) {
+        ingredientInKitchenRepository.deleteById(ingredientInKitchenId);
+    }
+
     @Transactional
     public void emptyWishList(long wishListId) {
         wishListRepository.findReference(wishListId).getIngredients().forEach(wishedIngredient -> removeFromWishList(wishedIngredient.getId()));

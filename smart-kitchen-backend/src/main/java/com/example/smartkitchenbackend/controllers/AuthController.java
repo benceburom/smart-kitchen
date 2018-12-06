@@ -1,7 +1,7 @@
-package com.example.smartkitchenbackend.endpoints;
+package com.example.smartkitchenbackend.controllers;
 
-import com.example.smartkitchenbackend.DTOs.payload.LoginRequest;
-import com.example.smartkitchenbackend.DTOs.payload.SignUpRequest;
+import com.example.smartkitchenbackend.DTOs.authentication.LoginRequest;
+import com.example.smartkitchenbackend.DTOs.authentication.SignUpRequest;
 import com.example.smartkitchenbackend.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

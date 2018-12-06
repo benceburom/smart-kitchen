@@ -2,10 +2,10 @@ package com.example.smartkitchenbackend.services;
 
 import com.example.smartkitchenbackend.DTOs.Kitchen.KitchenDTO;
 import com.example.smartkitchenbackend.DTOs.UserDTO;
-import com.example.smartkitchenbackend.DTOs.payload.ApiResponse;
-import com.example.smartkitchenbackend.DTOs.payload.JwtAuthenticationResponse;
-import com.example.smartkitchenbackend.DTOs.payload.LoginRequest;
-import com.example.smartkitchenbackend.DTOs.payload.SignUpRequest;
+import com.example.smartkitchenbackend.DTOs.authentication.ApiResponse;
+import com.example.smartkitchenbackend.DTOs.authentication.JwtAuthenticationResponse;
+import com.example.smartkitchenbackend.DTOs.authentication.LoginRequest;
+import com.example.smartkitchenbackend.DTOs.authentication.SignUpRequest;
 import com.example.smartkitchenbackend.entities.Role;
 import com.example.smartkitchenbackend.entities.RoleName;
 import com.example.smartkitchenbackend.entities.User;
@@ -20,12 +20,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,9 +39,7 @@ public class UserService {
 
 
     public User getUserById(long userId) {
-        return userRepository.findById(userId).orElseThrow(
-                () -> new UsernameNotFoundException("User not found with id : " + userId)
-        );
+        return userRepository.findById(userId);
     }
 
     public List<UserDTO> getUsers() {
@@ -100,7 +95,7 @@ public class UserService {
     }
 
     public List<KitchenDTO> getKitchensByUserId(long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found with id : " + userId));
+        User user = userRepository.findById(userId);
         return user.getKitchens().stream().map(KitchenConverter::toKitchenDTO).collect(Collectors.toList());
     }
 }

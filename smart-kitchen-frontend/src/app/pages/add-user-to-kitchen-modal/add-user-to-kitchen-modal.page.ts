@@ -41,7 +41,9 @@ export class AddUserToKitchenModalPage implements OnInit {
 
   filterItems(e) {
     this.filteredUsers = this.users;
-    this.filteredUsers = this.filteredUsers.filter(user => user.userName.toLowerCase().indexOf(e.target.value.toLowerCase()) > -1);
+    this.filteredUsers = this.filteredUsers.filter(user => 
+      user.userName.toLowerCase()
+      .indexOf(e.target.value.toLowerCase()) > -1);
   }
 
   addUserToKitchen(userId: number) {
@@ -64,7 +66,6 @@ export class AddUserToKitchenModalPage implements OnInit {
 
   async removeUsersFromList(userList: UserDTO[]) {
     const ids = await this.kitchenService.getUserIdsInKitchen(this.kitchenId);
-    console.log(ids);
     const returnList = new Array();
     userList.forEach(user => returnList.push(user));
     ids.forEach(id => {

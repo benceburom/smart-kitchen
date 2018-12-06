@@ -11,6 +11,7 @@ import { LogOutPopoverPage } from '../log-out-popover/log-out-popover.page';
 import { AddIngredientPopoverPage } from '../add-ingredient-popover/add-ingredient-popover.page';
 import { AddFoodPopoverPage } from '../add-food-popover/add-food-popover.page';
 import { AddUserToKitchenModalPage } from '../add-user-to-kitchen-modal/add-user-to-kitchen-modal.page';
+import { Toast } from '../../toast/toast';
 
 @Component({
     selector: 'app-kitchen-detail',
@@ -27,7 +28,9 @@ export class KitchenDetailPage implements OnInit {
         private route: ActivatedRoute,
         private kitchenService: KitchenService,
         private foodService: FoodService,
+        private ingredientService: IngredientService,
         private navCtrl: NavController,
+        private toast: Toast,
         private popoverController: PopoverController,
         private modalController: ModalController) {
     }
@@ -46,7 +49,9 @@ export class KitchenDetailPage implements OnInit {
     }
 
     getKitchenDetails() {
-        this.kitchenService.getKitchenDetails(this.kitchenId).subscribe(data => this.kitchenDetails = data);
+        this.kitchenService.getKitchenDetails(this.kitchenId).subscribe(data => {
+            this.kitchenDetails = data;
+        });
     }
 
 
@@ -81,30 +86,45 @@ export class KitchenDetailPage implements OnInit {
         await popover.present();
         await popover.onDidDismiss();
         this.getKitchenDetails();
+        this.getMakeAbleFoods();
     }
 
     async openAddFoodModal() {
         const modal = await this.modalController.create({
-          component: AddFoodPopoverPage,
-          componentProps: {
-            custom_id: this.kitchenId
-          }
+            component: AddFoodPopoverPage,
+            componentProps: {
+                custom_id: this.kitchenId
+            }
         });
         await modal.present();
         await modal.onDidDismiss();
         this.getFoodRecipes();
         this.getMakeAbleFoods();
-      }
+    }
 
-      async openAddUserModal() {
+    async openAddUserModal() {
         const modal = await this.modalController.create({
-          component: AddUserToKitchenModalPage,
-          componentProps: {
-            custom_id: this.kitchenId
-          }
+            component: AddUserToKitchenModalPage,
+            componentProps: {
+                custom_id: this.kitchenId
+            }
         });
         await modal.present();
-      }
+    }
+
+
+    async removeIngredient(id: number) {
+        await this.ingredientService.removeIngredientFromKitchen(id);
+        this.toast.presentToastWithOptions({
+            message: 'Ingredient removed',
+            duration: 2000,
+            showCloseButton: true,
+            position: 'bottom',
+            color: 'success',
+            closeButtonText: 'Close'
+        })
+        this.getKitchenDetails();
+    }
 
 
 }

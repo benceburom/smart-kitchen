@@ -12,19 +12,6 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class KitchenConverter {
 
-	public static Kitchen toEntity(NewKitchenDTO kitchenDTO) {
-		Kitchen kitchen = new Kitchen();
-		kitchen.setName(kitchenDTO.getName());
-		return kitchen;
-	}
-
-	public static NewKitchenDTO toNewKitchenDTO(Kitchen kitchen, long userId) {
-		return NewKitchenDTO.builder()
-				.name(kitchen.getName())
-				.userId(userId)
-				.build();
-	}
-
 	public static KitchenDTO toKitchenDTO(Kitchen kitchen) {
 		return KitchenDTO.builder()
 				.name(kitchen.getName())

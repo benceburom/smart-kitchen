@@ -1,6 +1,6 @@
 package com.example.smartkitchenbackend.serviceTests;
 
-import com.example.smartkitchenbackend.DTOs.payload.SignUpRequest;
+import com.example.smartkitchenbackend.DTOs.authentication.SignUpRequest;
 import com.example.smartkitchenbackend.entities.Role;
 import com.example.smartkitchenbackend.entities.RoleName;
 import com.example.smartkitchenbackend.entities.User;
